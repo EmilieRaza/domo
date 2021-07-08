@@ -1,0 +1,53 @@
+<nav class="navbar navbar-expand-lg">
+  <a class="navbar-brand logo" href="{{ path('home')}}">
+    <img src="{{ asset('build/images/logo.png')}}" alt="logo" class="img-fluid">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon">
+        <i class="fa fa-bars" aria-hidden="true"></i>
+    </span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item {% if app.request.get('_route') == 'home'%} active {% endif %}">
+        <a class="nav-link" href="{{ path('home')}}">Accueil </a>
+      </li>
+      <li class="nav-item {{ app.request.get('_route') in ['page_read'] and app.request.get('id') == 1 ? 'active' }}">
+        <a class="nav-link" href="{{ path('page_read', {'id': 1, 'title':'A propos'|my_url_encode}) }}">A propos </a>
+      </li>
+
+      <li class="nav-item {{ app.request.get('_route') in ['page_read'] and app.request.get('id') == 2 ? 'active' }}">
+        <a class="nav-link" href="{{ path('page_read', {'id': 2, 'title':'Notre vanille'|my_url_encode}) }}">Notre vanille </a>
+      </li>
+      <li class="nav-item {% if app.request.get('_route') == 'product_all'%} active {% endif %}">
+        <a class="nav-link" href="{{ path('product_all')}}">Nos produits </a>
+      </li>
+      <li class="nav-item {% if app.request.get('_route') == 'contact'%} active {% endif %}">
+        <a class="nav-link" href="{{ path('contact')}}">Contact</a>
+      </li>
+
+    </ul>
+    <ul class="navbar-nav navbar-right ml-auto">
+        {# <li><a class="nav-link text-lowercase" href="https://www.facebook.com/pg/vanillepremium/posts/" target="_blank"><i class="fab fa-facebook"></i>acebook</a></li> #}
+
+        {% if is_granted('ROLE_USER') %}
+          {% if is_granted('ROLE_ADMIN') %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ path('admin')}}"><i class="fas fa-sign-in-alt"></i> Admin</a>
+            </li>
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ path('fos_user_security_logout')}}"><i class="fas fa-sign-in-alt"></i> Deconnexion</a>
+            </li>
+          {% endif %}
+        {% else %}
+          <li class="nav-item {% if app.request.get('_route') == 'login'%} active {% endif %}">
+            <a class="nav-link" href="{{ path('fos_user_security_login')}}"><i class="fas fa-sign-in-alt"></i> Connexion pro</a>
+          </li>
+        {% endif %}
+        
+        <li><a class="nav-link" href="{{ path('cart')}}">Panier <i class="fas fa-shopping-cart"></i> ({{count_cart}})</a></li>
+    </ul>
+  </div>
+</nav>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmation de votre inscription</title>
+</head>
+<body>
+    Bonjour {{ user.firstname }} {{user.lastname}}, <br>
+
+    <p>
+        Votre compte vient d'être validé par notre équipe ! Vous pouvez dès à présent vous connecter.<br>
+        Toute l'equipe {{ conf_company_name }} vous remercie!
+    </p>
+    <br>
+    <i><small>Veuillez noter que ceci est un email automatique de <a href="{{absolute_url(path('home'))}}">{{absolute_url(path('home'))}}</a></small><i/>
+</body>
+</html>

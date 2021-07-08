@@ -1,0 +1,38 @@
+{% extends 'back/layout.html.twig' %}
+
+{% block title %} Voir {{'Slider'|transchoice(1)}} {% endblock %}
+
+{% block content %}
+
+<section class="section-padding">
+    <div class="container">
+        <h1>Voir {{'Slider'|transchoice(1)}}</h1>
+        <div class="shape"></div>
+
+        <div class="text-right mt-4">
+            <a href="{{ path('admin_slider_search') }}" class="btn btn-primary" role="button">
+                <i class="fa fa-reply"></i> Retour
+            </a>
+        </div>
+        <div class="card mt-4 mb-4">
+            <div class="card-header text-center">
+                <h4>Détail {{'Slider'|transchoice(1)}}</h4>
+            </div>
+            <div class="card-content">
+                <div class="read-content">
+                    {% if slider.imagesName %}
+                        <img src="{{ vich_uploader_asset(slider, 'imagesFile') | imagine_filter('thumb') }}" alt="{{ slider.imagesName }}" class="img-responsive">
+                    {% endif %}
+                </div>
+                <hr>
+                <div class="read-content">
+                    <p>
+                        <strong>{% trans %}CreatedAt{% endtrans %}</strong> : 
+                        {{ slider.createdAt ? slider.createdAt|date('d/m/Y') : '' }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

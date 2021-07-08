@@ -1,0 +1,25 @@
+{% extends 'front/layout.html.twig' %}
+
+{% block title %}Des questions ? Venez nous les poser via notre site internet {% endblock %}
+{% block description %}Vous voulez nous poser quelques questions à propos de nos produits ? Vous souhaitez nous faire une proposition commerciale, une demande d'informations générale ou encore tertiaire ? Rejoignez-nous sur notre site internet à partir de notre formulaire de contact. Nous vous répondrons dans les plus brefs délais.{% endblock %}
+
+{% block content %}
+    {% block banner %}
+        <section class="banner pages">
+            <div class="container">
+                <div class="middle">
+                    <h1>Contactez-nous !</h1>
+                </div>
+            </div>
+        </section>
+    {% endblock %}
+
+
+    <section class="section-padding">
+        <div class="container">
+            <h2 class="text-center">Une question ? <br> Une proposition commerciale ? <br> Contactez-nous !</h2>
+            <div class="shape"></div>
+            {% include "front/blocks/contact.html.twig" %}
+        </div>
+    </section>
+{% endblock %}

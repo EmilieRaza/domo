@@ -1,0 +1,26 @@
+{% extends "front/layout.html.twig" %}
+
+{% block content %}
+    {% block banner %}
+        <section class="banner pages">
+            <div class="container">
+                <div class="middle">
+                    <h1>Connexion professionnel</h1>
+                    <div class="shape"></div>
+                    <div class="text-center">
+                        <a href="{{ path("registration") }}" class="text-light h5">
+                            Pas encore de compte? Créez un compte <i class="fas fa-chevron-circle-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endblock %}
+    <section class="section-padding">
+        <div class="container">
+            <div class="col-md-6 mx-auto">
+                {{ include('@FOSUser/Security/login_content.html.twig') }}
+            </div>
+        </div>
+    </section>
+{% endblock content %}

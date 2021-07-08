@@ -1,0 +1,66 @@
+
+
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm" id="mainNav" style="background-color: white!important;">
+            <div class="container px-5">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="bi-list"></i>
+                </button>
+                <div class="row">
+                    <div class="col-md-3">
+                        <a class="navbar-brand fw-bold" href="{{ path('home')}}" class="float-left" style="float:left!important">
+                            <img src="{{ asset('build/images/Domosystem-logo-2.jpg')}}" class="w-100" style="float:left!important">
+                        </a>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="collapse navbar-collapse" id="navbarResponsive">
+                            <ul class="navbar-nav ms-auto me-4 my-3 my-lg-0 font-weight-bold ">
+                                <li class="nav-item"><a class="nav-link me-lg-3 text-uppercase text-dark" href="#features">Batiment- immobilier</a>
+                                <li class="nav-item"><a class="nav-link me-lg-3 text-uppercase text-dark" href="#download">Industries</a></li>
+                                <li class="nav-item"><a class="nav-link me-lg-3 text-uppercase text-dark" href="#download">Biomasse</a></li>
+                                <li class="nav-item"><a class="nav-link me-lg-3 text-uppercase text-dark" href="#download">Accessoires</a></li>
+                            </ul>
+                            <button class="btn btn-red text-light rounded-pill px-3 mb-2 mb-lg-0 mt-0" data-bs-toggle="modal" data-bs-target="#feedbackModal">
+                                <span class="d-flex align-items-center">
+                                    {# <span class="small"> Nous contacter <i class="fas fa-comment-dots text-light"></i></span> #}
+                                    <span class="small">Contact <i class="fas fa-comment-dots text-light"></i> </span>
+                                </span>
+                            </button>&nbsp; 
+                            
+                            
+                            {% if is_granted('ROLE_USER') %}
+                            {% if is_granted('ROLE_ADMIN') %}
+                            <a class="nav-link" href="{{ path('admin')}}">
+                                <button class="btn btn-red text-light rounded-pill px-3 mb-2 mb-lg-0 mt-0" data-bs-toggle="modal" data-bs-target="#feedbackModal">
+                                        <span class="d-flex align-items-center">
+                                            <span class="small">Admin <i class="fas fa-sign-in-alt"></i></span>
+                                        </span>
+                                </button>
+                            </a>
+                            {% else %}
+                              
+                            <a class="nav-link" href="{{ path('fos_user_security_logout')}}">
+                             <button class="btn btn-red text-light rounded-pill px-3 mb-2 mb-lg-0 mt-0" data-bs-toggle="modal" data-bs-target="#feedbackModal">
+                                        <span class="d-flex align-items-center">
+                                            <span class="small">Deconnexion</span>
+                                        </span>
+                                </button>
+                            </a>
+                           
+                            {% endif %}
+                            {% else %}
+                                <a class="nav-link" href="{{ path('fos_user_security_login')}}">
+                                    <button class="btn btn-red text-light rounded-pill px-3 mb-2 mb-lg-0 mt-0" data-bs-toggle="modal" data-bs-target="#feedbackModal">
+                                        <span class="d-flex align-items-center">
+                                            <span class="small">Login <i class="fas fa-sign-in-alt"></i></span>
+                                        </span>
+                                    </button>
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+        </nav>
+        

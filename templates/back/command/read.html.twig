@@ -1,0 +1,82 @@
+{% extends 'back/layout.html.twig' %}
+
+{% block title %} Voir {{'Command'|transchoice(1)}} {% endblock %}
+
+{% block content %}
+
+<section class="section-padding">
+    <div class="container">
+        <h1>Voir {{'Command'|transchoice(1)}}</h1>
+        <div class="shape"></div>
+
+        <div class="text-right mt-4">
+            <a href="{{ path('admin_command_search') }}" class="btn btn-primary" role="button">
+                <i class="fa fa-reply"></i> Retour
+            </a>
+        </div>
+        <div class="card mt-4 mb-4">
+            <div class="card-header text-center">
+                <h4>Détail {{'Command'|transchoice(1)}} {{ command.orderKey }}</h4>
+            </div>
+            <div class="card-content">
+                <h4>Fiche contact</h4>
+                <p><strong>Commande du: {{ command.createdAt ? command.createdAt|date('d/m/Y') : '' }}</strong></p>
+                <ul class="list-unstyled">
+                    <li><strong>{% trans %}Firstname{% endtrans %}:</strong> {{ command.firstname }}</li>
+                    <li><strong>{% trans %}Lastname{% endtrans %}:</strong> {{ command.lastname }}</li>
+                    <li><strong>{% trans %}Email{% endtrans %}:</strong> {{ command.email }}</li>
+                    <li><strong>{% trans %}Phone{% endtrans %}:</strong> {{ command.phone }}</li>
+                    <li><strong>{% trans %}Address{% endtrans %}:</strong> {{ command.address }} {{ command.zipcode }}  {{ command.city }}</li>
+                    <li><strong>{% trans %}StripeKey{% endtrans %}:</strong> {{ command.stripeKey }}</li>
+                </ul>
+                <a href="{{absolute_url(path('home')) ~ 'upload/billing/' ~ command.billing}}" title="Téléchager la facture" class="btn btn-success btn-block" target="_blank"><i class="fas fa-download"></i> Télécharger la facture</a>
+                <div class="table-responsive mt-4 mb-4">
+                <table class="table table-striped table-bordered" width="100%" cellspacing="0" data-page-length='50'>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Nom</th>
+                            <th>Taille/Poids</th>
+                            <th>Prix</th>
+                            <th>Quantité</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                   {% for command in command.commandProduct %}
+                        <tr>
+                            <td>
+                                <div class="thumb-cart">
+                                    {% if command.product.images|length > 0 %}
+                                        <img src="{{ vich_uploader_asset(command.product.images.0, 'imageFile') | imagine_filter('thumb_cart') }}" alt="{{command.product.title}}" class="img-fluid">
+                                    {% else %}
+                                        <img src="{{ asset('build/images/default-image.jpg') | imagine_filter('thumb_cart') }}" alt="{{command.product.title}}" class="img-fluid">
+                                    {% endif %}
+                                </div>
+                            </td>
+                            <td>{{command.product.title}}</td>
+                            <td>
+                                {% if command.product.weight %}
+                                    {{ command.product.size.convert }} / {{ command.product.weight.convert }}
+                                {% else %}
+                                    {{ command.product.size.convert }}
+                                {% endif %}
+                            </td>
+                            
+                            <td>{{command.price|number_format(2, ',', '')}} €</td>
+                            <td>{{command.quantity}}</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="6">Aucun enregistrement</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="btn btn-primary btn-block">
+                <h4>Total: {{command.total}} €</h4>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

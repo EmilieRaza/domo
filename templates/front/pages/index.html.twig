@@ -1,0 +1,230 @@
+{% extends 'front/layout.html.twig' %}
+
+{% block title %}Domosystem - Leader français de la mesure de l'humidité
+{% endblock %}
+{% block description %}
+{% endblock %}
+
+{% block content %}
+	{% block banner %}
+            <header class="bg-dark py-5" style="background-image: url({{ asset('build/images/banner-domo.jpg')}});">
+
+                <div class="container px-5 h-75">
+                    <div class="row gx-5 align-items-center justify-content-center">
+                        <div class="col-lg-8 col-xl-7 col-xxl-6">
+                            <div class="my-5 text-center text-xl-start">
+                                <h1 class="display-5 fw-bolder text-white mb-2 text-uppercase">Leader français de la <span class="color-red">mesure de l'humidité dans les matériaux</span></h1>
+
+                                <div id="text-1" class="fw-bolder">GAMME</div> 
+                                    <div id="text-2">
+                                        <span id="text-2-span" class="fw-bolder color-red">BÂTIMENT</span>
+                                    </div>
+				<!-- 
+                                <p class="lead fw-normal text-white-50 mb-4">Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit!</p> -->
+                                <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
+                                    <a class="btn btn-red text-light btn-lg px-4 me-sm-3"  href="{{ path('product_all')}}">Voir nos produits</a>
+                                    <!--<a class="btn btn-outline-light btn-lg px-4" href="#!">Qui sommes-nous? </a>-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center">
+                        
+                                <div class="card m-5 p-5">
+                                  <div class="sneaker">
+                                    <div class="circle"></div>
+                                    <img src="https://www.domo-system.fr/wp-content/uploads/2017/08/Humitest-special-biomasse-4.jpg" class="h-75" alt="NEW6PRODUCT" />
+                                  </div>
+                                  <div class="info">
+                                    <h1 class="title">Humitest spécial biomasse</h1>
+                                    <h3>
+                                        Humidimètre pour biomasses solides.
+                                    </h3>
+                                    <div class="sizes">
+                                      <button>Nouveauté</button>
+                                      <button>1827,00€</button>
+                                      <a href="product.html">
+                                          <button class="active">Voir</button>
+                                      </a>
+                                    </div>
+                                    
+                                  </div>
+                                </div>
+
+                        </div>
+                    </div>
+                </div>
+            </header>
+	{% endblock %}
+             <!-- qui sommes-nous?-->
+            <div class="py-3 bg-light " >
+              <div class="container px-5 my-5 mb-0">
+                    <div class="row gx-5 justify-content-center">
+                        <div class="col-lg-7 col-xl-7">
+                            <div class="t">
+                                <div class="mb-4 ">
+                                    <p class="h6 text-justify" style="font-weight: lighter;font-size: 1.4rem;text-align:justify">Depuis 1980 <strong>DOMOSYSTEM</strong> France est le leader de la distribution d’appareils de mesure de l’humidité dans les matériaux et l’air, maçonnerie, béton, bois, biomasse, agroalimentaire, industries. <br>Adossée à deux industriels de la mesure professionnelle, nous vous proposons une gamme résistante et high-tech qui font la notoriété de Domosystem depuis presque 40 ans.</p></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-5 col-xl-5">
+                            <img src="{{ asset('build/images/qui2.png')}}" class="w-100 mt-0" > 
+                            <div class="text-center">
+                                <div class="fs-4 mb-4 ">
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+                
+            </div>
+             <!-- GAMMES DE PRODUITS-->
+             <section class="py-5">
+                <div class="container px-5 my-5">
+                    <div class="row gx-5 justify-content-center">
+                        <div class="col-lg-8 col-xl-6">
+                            <div class="text-center">
+                                <h2 class="fw-bolder text-uppercase">Découvrez nos gammes de produits </h2> <br><br>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row gx-5 ">
+                        <div class="col-lg-4 mb-5 card_gamme ">
+                            <div class=" h-100 shadow border-0 card_gamme" >
+                                <img class="card-img-top" src="{{ asset('build/images/gamme1.jpg')}}" alt="..." />
+                                <div class="card-body p-4">
+                                    <ul class="list-group list-group-flush list-unstyled">
+                                        <li class="fw-bold p-2">
+                                            <div class="bg-light p-3 shadow-sm" >
+                                                <span class="">
+                                                    <i class="fas fa-building fa-2x color-red rounded-circle"></i> <span class="float-right">
+                                                        AIR
+                                                    </span>
+                                                </span>
+                                            </div>
+                                        </li>
+                                        <li class="fw-bold p-2">
+                                            <div class="bg-light p-3 shadow-sm" >
+                                                <span class="">
+                                                    <i class="fas fa-building fa-2x color-red rounded-circle"></i> <span class="float-right">
+                                                        BOIS
+                                                    </span>
+                                                </span>
+                                            </div>
+                                        </li>
+                                        <li class="fw-bold p-2">
+                                            <div class="bg-light p-3 shadow-sm" >
+                                                <span class="text-uppercase">
+                                                    <i class="fas fa-building fa-2x color-red rounded-circle"></i> <span class="float-right">
+                                                        maçonnerie
+                                                    </span>
+                                                </span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 mb-5">
+                            <div class="h-100 shadow border-0 ">
+                                <img class="card-img-top" src="{{ asset('build/images/gamme2.jpg')}}" alt="..." />
+                                <div class="card-body p-4">
+                                    <ul class="list-group list-group-flush list-unstyled">
+                                        <li class="fw-bold p-2">
+                                            <div class="bg-light p-3 shadow-sm" >
+                                                <span class="">
+                                                    <i class="fas fa-industry fa-2x color-red rounded-circle"></i> <span class="float-right">
+                                                        PAPIER
+                                                    </span>
+                                                </span>
+                                            </div>
+                                        </li>
+                                        <li class="fw-bold p-2">
+                                            <div class="bg-light p-3 shadow-sm" >
+                                                <span class="">
+                                                    <i class="fas fa-industry fa-2x color-red rounded-circle"></i> <span class="float-right">
+                                                        TEXTILE
+                                                    </span>
+                                                </span>
+                                            </div>
+                                        </li>
+                                        <li class="fw-bold p-2">
+                                            <div class="bg-light p-3 shadow-sm" >
+                                                <span class="">
+                                                    <i class="fas fa-industry fa-2x color-red rounded-circle"></i> <span class="float-right">
+                                                        CUIR
+                                                    </span>
+                                                </span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 mb-5">
+                            <div class="h-100 shadow border-0 card_gamme">
+                                <img class="card-img-top" src="{{ asset('build/images/gamme3.jpg')}}" alt="..." />
+                                <div class="card-body p-4">
+                                    <ul class="list-group list-group-flush list-unstyled">
+                                        <li class="fw-bold p-2">
+                                            <div class="bg-light p-3 shadow-sm" >
+                                                <span class="">
+                                                    <i class="fas fa-tree fa-2x color-red rounded-circle"></i> <span class="float-right">
+                                                        BOIS/PAILLE
+                                                    </span>
+                                                </span>
+                                            </div>
+                                        </li>
+                                        <li class="fw-bold p-2">
+                                            <div class="bg-light p-3 shadow-sm" >
+                                                <span class="">
+                                                    <i class="fas fa-tree fa-2x color-red rounded-circle"></i> <span class="float-right">
+                                                        TOURBE
+                                                    </span>
+                                                </span>
+                                            </div>
+                                        </li>
+                                        <li class="fw-bold p-2">
+                                            <div class="bg-light p-3 shadow-sm" >
+                                                <span class="text-uppercase">
+                                                    <i class="fas fa-tree fa-2x color-red rounded-circle"></i> <span class="float-right">
+                                                        BOUE
+                                                    </span>
+                                                </span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Référence-->
+                    <aside class="btn-red bg-gradient rounded-3 p-4 p-sm-5 mt-5">
+                        <div class="d-flex align-items-center justify-content-between flex-column flex-xl-row text-center text-xl-start">
+                            <div class="mb-4 mb-xl-12">
+                                <div class="fs-3 fw-bold text-white text-uppercase">nos références</div>
+                                <div class="text-white-50">Découvrez la liste de nos références</div> <br>
+                                <img src="{{ asset('build/images/1.jpg')}}" class="rounded" style="width:90px"/>
+                                <img src="{{ asset('build/images/2.jpg')}}"  class="rounded" style="width:90px"/>
+                                <img src="{{ asset('build/images/3.jpg')}}"  class="rounded" style="width:90px"/>
+                                <img src="{{ asset('build/images/4.jpg')}}"  class="rounded" style="width:90px"/>
+                                <img src="{{ asset('build/images/5.jpg')}}"  class="rounded" style="width:90px"/>
+                                <img src="{{ asset('build/images/6.jpg')}}"  class="rounded" style="width:90px"/>
+                                <img src="{{ asset('build/images/7.jpg')}}"  class="rounded"style="width:90px"/>
+                                <img src="{{ asset('build/images/8.jpg')}}"  class="rounded" style="width:90px"/>
+                                <img src="{{ asset('build/images/9.jpg')}}"  class="rounded" style="width:90px"/>
+                                <img src="{{ asset('build/images/10.jpg')}}"  class="rounded" style="width:90px"/>
+                                <img src="{{ asset('build/images/11.jpg')}}"  class="rounded" style="width:90px"/>
+                            </div>
+                            
+                            <!-- <div class="ms-xl-4">
+                                <div class="input-group mb-2">
+                                    <input class="form-control" type="text" placeholder="Email address..." aria-label="Email address..." aria-describedby="button-newsletter" />
+                                    <button class="btn btn-outline-light" id="button-newsletter" type="button">Sign up</button>
+                                </div>
+                                <div class="small text-white-50">We care about privacy, and will never share your data.</div>
+                            </div> -->
+                        </div>
+                    </aside>
+                </div>
+            </section>
+     
+{% endblock %}

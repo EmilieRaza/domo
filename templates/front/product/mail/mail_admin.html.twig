@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+   <title>Formulaire de commande</title>
+
+   <style>
+        .table>thead>tr>th {
+            vertical-align: bottom;
+            background-color:#38454e;
+            color:#fff;
+        }
+
+        .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+            padding: 8px;
+            line-height: 1.42857143;
+            vertical-align: top;
+        }
+
+        .table-striped tbody tr:nth-of-type(odd) {
+            background-color: #ddd;
+        }
+
+        .table td, .table th {
+            vertical-align: top;
+            border-top: 1px solid #dee2e6;
+            text-transform: capitalize;
+        }
+
+         .total{
+            color:#38454e;
+            padding: 5px;
+            border: 1px solid #38454e;
+            background: transparent;
+            width:150px;
+        }
+
+        .total h3{
+            margin:auto;
+        }
+    </style>
+</head>
+<body>
+    Bonjour, <br>
+
+    <p>Une commande vient d'être passée sur votre site internet <a href="{{absolute_url(path('home'))}}">{{absolute_url(path('home'))}}</a></p>
+	<p>
+	<h2 style='margin-bottom:5px;'>Fiche contact</h2>
+        <strong>Numéro de commande:</strong>: {{data.productKey}}<br>
+        <strong>Nom & Prénom</strong>: {{ data.lastname }} {{ data.firstname }}<br>
+        <strong>Email</strong>:  {{ data.email }}<br>
+        <strong>Téléphone</strong>:  {{ data.phone }}<br>
+        <strong>Adresse</strong>:  {{ data.address }} {{ data.zipcode }} {{ data.city }}<br>
+    <h2 style='margin-bottom:5px;'>Produit(s)</h2>
+    
+     
+       <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Taille/Poids</th>
+                    <th>Prix</th>
+                    <th>Quantité</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for product in data.products %}
+                <tr>
+                    <td>{{product.object.title}}</td>
+                    <td>
+                        {% if product.object.weight %}
+                            {{product.object.size}} / {{product.object.weight}}
+                        {% else %}
+                            {{product.object.size}}
+                        {% endif %}
+                    </td>
+                    {% if product.object.solde > 0 %}
+                        {% set price = product.object.priceSolde*product.qtt %}
+                    {% else %}
+                        {% set price = product.object.price*product.qtt %}
+                    {% endif %}
+                    <td>{{price|number_format(2, ',', '')}} €</td>
+                    <td>
+                        {{product.qtt}}
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6">Aucun enregistrement</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    <br>
+    <div class="total">
+        {% if data.delivery > 0 %}
+            <small>Frais de livraison:  {{data.delivery|number_format(2, ',', '')}} €</small><br>
+        {% endif %}
+        {# <!-- <small>TVA: {{data.tva|number_format(2, ',', '')}} %</small> --> #}
+        <h3>
+            {% if data.oldtotal > 0 %}
+                <i><small>Code Promo</small></i><br>
+                Total: <small><del>{{data.oldtotal|number_format(2, ',', '')}} €</del></small>
+                {{data.total|number_format(2, ',', '')}} €
+            {% else %}
+                Total: {{data.total|number_format(2, ',', '')}} €
+            {% endif %}
+        </h3>
+    </div>
+    <br>
+    <i><small>Veuillez noter que ceci est un email automatique de <a href="{{absolute_url(path('home'))}}">{{absolute_url(path('home'))}}</a></small><i/>
+</body>
+</html>

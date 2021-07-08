@@ -1,0 +1,163 @@
+{% extends 'front/layout.html.twig' %}
+
+{% block title %}Votre panier{% endblock %}
+
+{% block content %}
+
+{# ///////////////// MODAL DELETE ////////////////////#}
+<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Enlever un produit du panier</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                <form method="post" action="">
+                    <input id="token" type="hidden" name="_token" value="">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit" class="btn btn-danger">Supprimer</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{# ///////////////// END MODAL DELETE ////////////////////#}
+
+{% block banner %}
+<section class="no-banner">
+</section>
+{% endblock %}
+
+
+<section class="section-padding">
+    <div class="container">
+        <h2 class="text-center">Liste de vos produits</h2>
+        <div class="shape"></div>
+        {% set max_killo_txt = max_killo.value/1000 %}
+        <h4 class="text-center">Pour toute commande Au-delà de {{max_killo_txt}}kg <u><a
+                    href="{{ path('contact')}}">contactez-nous!</a></u></h4>
+
+        <div class="table-responsive mt-4 mb-4">
+            <table class="table table-striped table-bordered" width="100%" cellspacing="0" data-page-length='50'>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Nom</th>
+                        <th>Taille /Poids</th>
+                        <th>Prix</th>
+                        <th>Quantité</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% set total = 0 %}
+                    {% set killo = 0 %}
+
+
+                    {% for product in products %}
+                    <tr>
+                        <td>
+                            <div class="thumb-cart">
+                                {% if product.object.images|length > 0 %}
+                                <img src="{{ vich_uploader_asset(product.object.images.0, 'imageFile') | imagine_filter('thumb_cart') }}"
+                                    alt="{{product.object.title}}" class="img-fluid">
+                                {% else %}
+                                <img src="{{ asset('build/images/default-image.jpg') | imagine_filter('thumb_cart') }}"
+                                    alt="{{product.object.title}}" class="img-fluid">
+                                {% endif %}
+                            </div>
+                        </td>
+                        <td>{{product.object.title}}</td>
+                        <td>
+                            {% if product.object.weight %}
+                            {{ product.object.size }} / {{ product.object.weight }}
+                            {% else %}
+                            {{ product.object.size }}
+                            {% endif %}
+                        </td>
+                        {% if product.object.solde > 0 %}
+                        {% set price = product.object.priceSolde*product.qtt %}
+                        {% else %}
+                        {% set price = product.object.price*product.qtt %}
+                        {% endif %}
+                        <td>{{price|number_format(2, ',', '')}} €</td>
+                        <td>
+                            <form action="{{ path('cart')}}" method="post">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input type="number" min=1 class="form-control" name="qtt"
+                                                value="{{product.qtt}}">
+                                            <input type="hidden" name="id" value="{{product.id}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <button class="btn btn-primary btn-block">
+                                            <i class="fas fa-sync"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </td>
+                        <td>
+                            <a href="#" title="Supprimer" class="btn btn-danger btn-delete" data-toggle="modal"
+                                data-target="#delete" aria-label="Supprimer" id="{{product.id}}"
+                                data-title="{{product.object.title}}"
+                                data-path="{{ path('product_delete', {'id': product.id})}}">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% set total = total + price %}
+                    {% if product.object.weight %}
+                    {% set killo = killo + product.object.weight.value*product.qtt %}
+                    {% endif %}
+                    {% else %}
+                    <tr>
+                        <td colspan="6">Aucun enregistrement</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% if killo > max_killo.value %}
+        <div class="mb-4">
+            <a href="{{ path('contact')}}" class="btn btn-outline-danger btn-block">Le poids de votre commande est
+                supperieur à {{max_killo_txt}}kg veuillez nous contacter pour passer commande !</a>
+        </div>
+        {% endif %}
+        <div class="row">
+            <div class="col-sm-4">
+                <a href="{{ path('product_all')}}" class="btn btn-primary btn-block"><i class="fas fa-reply-all"></i>
+                    Liste des produits</a>
+            </div>
+            <div class="col-sm-4">
+                <button class="btn btn-primary btn-block">
+                    Total: {{total|number_format(2, ',', '')}} €
+                </button>
+            </div>
+            <div class="col-sm-4">
+                {% if killo > max_killo.value %}
+                <a href="{{ path('contact')}}" class="btn btn-primary btn-block colored">contactez-nous!</a>
+                {% else %}
+                {% if total > 0 %}
+                <form action="{{ path('product_information')}}" method="post">
+                    <input type="hidden" name="total" value="{{total}}">
+                    <button class="btn btn-primary btn-block colored">
+                        Validez votre panier <i class="fas fa-shopping-cart"></i>
+                    </button>
+                </form>
+                {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "front/layout.html.twig" %}
+
+{% block content %}
+    {% block banner %}
+        <section class="banner pages">
+            <div class="container">
+                <div class="middle">
+                    <h1>Modifier le mot de passe</h1>
+                </div>
+            </div>
+        </section>
+    {% endblock %}
+    <section class="section-padding">
+        <div class="container">
+            <div class="col-md-6 mx-auto">
+                {% include "@FOSUser/Resetting/reset_content.html.twig" %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

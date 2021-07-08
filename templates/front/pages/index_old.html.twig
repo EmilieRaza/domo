@@ -1,0 +1,301 @@
+{% extends 'front/layout.html.twig' %}
+
+{% block title %}Votre spécialiste de la vanille 100 % naturelle
+{% endblock %}
+{% block description %}Sublimez vos plats et vos pâtisseries et commandez sans plus attendre vos vanilles de qualités sur vanille premium. Vanille Premium vous propose de la vanille de haute qualité, en petite ou en grosse quantité, nous répondrons au mieux à vos attentes. Découvrez ces derniers à partir de notre site internet.
+{% endblock %}
+
+{% block content %}
+	{% block banner %}
+		<section class="banner">
+			{% include "front/blocks/slider.html.twig" %}
+			<div class="bgblack"></div>
+			<div class="container">
+				<div class="middle">
+					<img src="{{ asset('build/images/logo-slider.png')}}" alt="logo" class="img-fluid">
+					<div class="shape"></div>
+					<h1>Vanille de Madagascar de qualité premium</h1>
+					<h2>Spécialiste de la vanille 100 % naturelle</h2>
+					<br><br>
+					{# {% include "front/blocks/search.html.twig" %} #}
+				</div>
+			</div>
+		</section>
+	{% endblock %}
+
+	<section class="banner-outer">
+		<div class="container">
+			<div class="banner-bg">
+				{% for row in categories|batch(2) %}
+					<div class="row">
+						{% for category in row %}
+							<div class="col-md-6 mb-4">
+								<div class="inner-banner-bg" {% if category.imageName %} style="background-image: url({{vich_uploader_asset(category, 'imageFile')|imagine_filter('thumb_category') }})" {% endif %}>
+									<div class="banner-bg-text text-center">
+										<h3>{{category.name}}</h3>
+										<p>
+											{{category.content|raw}}
+										</p>
+										<br>
+										<a href="{{ path('product_category', {'id': category.id, 'name':category.name|my_url_encode}) }}" class="btn btn-primary btn-block colored">Nos produits</a>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</section>
+
+	<section class="section-padding">
+		<div class="container">
+			<h2 class="text-center">Qui sommes-nous !</h2>
+			<div class="shape"></div>
+			<div class="text-justify col-lg-8 mx-auto">
+				<p>
+					Société basée à l'Île de La Réunion, nous commercialisons exclusivement de la vanille Bourbon en
+					                provenance de
+					                Madagascar de plus de 16 cm, variété dite
+					<strong>"Prémium"</strong>.
+				</p>
+				<p>
+					Des gousses charnues, luisantes et surtout
+					<strong>conditionnées sous fioles ou sous-vide</strong>, afin
+						                de vous garantir un maximum de fraîcheur.
+				</p>
+				<p>
+					C'est un choix stratégique qui nous permet d'assurer la qualité de nos produits.
+				</p>
+				<p>
+					Livrable partout en France, n'hésitez pas à
+					<a href="{{ path('product_all')}}">
+						<strong>commander</strong>
+					</a>
+					ou à nous
+					<a href="{{ path('contact')}}">
+						<strong>contacter</strong>
+					</a>
+					sur notre site pour tout complément
+					                d'information.
+				</p>
+			</div>
+		</div>
+	</section>
+
+	{% if products|length > 0 %}
+		<section class="section-padding last">
+			<div class="container">
+				<h2 class="text-center">Produits tendance</h2>
+				<div class="shape"></div>
+				{# <p class="text-center">Mirum est notare quam littera gothica quam nunc putamus parum claram!</p> #}
+				{% include "front/blocks/product_card_home.html.twig" %}
+				<br>
+				<a href="{{ path('product_all')}}" class="btn btn-primary btn-block">Tous nos produits</a>
+			</div>
+		</section>
+	{% endif %}
+
+	<section class="section-colored">
+		<div class="container">
+			<div class="row text-center">
+				<div class="col-lg-3 col-sm-6 box">
+					<i class="fas fa-truck fa-3x mb-4"></i><br>
+					<h3>EXPÉDIÉ DANS LES 24 HEURES</h3>
+				</div>
+				<div class="col-lg-3 col-sm-6 box">
+					<i class="fas fa-star fa-3x  mb-4"></i><br>
+					<h3>DES PROMOTIONS TOUTE L'ANNÉE</h3>
+				</div>
+				<div class="col-lg-3 col-sm-6 box">
+					<i class="fas fa-check-square fa-3x  mb-4"></i><br>
+					<h3>PRODUIT DE QUALITÉ PREMIUM</h3>
+				</div>
+				<div class="col-lg-3 col-sm-6 box">
+					<i class="fas fa-lock fa-3x  mb-4"></i><br>
+					<h3>PAIEMENT SÉCURISÉ STRIPE</h3>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="section-padding">
+		<div class="container text-justify">
+			<h2 class="text-center">Notre objectif vous proposez la meilleure Vanille Bourbon</h2>
+			<div class="shape"></div>
+			<p>
+				Depuis plusieurs années nous commercialisons et vendons en ligne des gousses de vanille de qualité
+				            supérieure pour sublimer et aromatiser toutes vos sucreries, pâtisseries… Nos gousses sont cultivées et
+				            sélectionnées à Madagascar puis transportées vers nos entrepôts français où elles sont minutieusement
+				            stockées.
+				<strong>Elles ont un taux de vanilline naturellement élevé,</strong>
+				ce qui apportera un goût supplémentaire à
+				            toutes vos réalisations.
+			</p>
+			<p>
+				Les gousses de
+				<strong>vanille premium</strong>
+				que nous mettons à votre disposition sont produite dans une région de Madagascar,  dans la région de Sambava plus précisément, au nord-est de la région de Sava connue pour ses nombreux producteurs ayant chacun leur savoir-faire.
+				            La vanille que nous cultivons pousse à Madagascar et à une appellation qui est vanille bourbon. Mondialement
+				            connue, cette qualité de vanille vous garantie un produit authentique, parfumé et de qualité.
+				            Notre principal producteurs exerce ce métier depuis plus de 30 ans et est l'un des premiers producteurs de
+				            Madagascar.
+				            L’intensité et la puissance de notre
+				<strong>vanille premium</strong>
+				est dû à un affinage long et précis lors de la mise en malle de
+				            nos gousses. Ce temps permet à la vanille de révéler tous ses arômes et de la rendre meilleure.
+			</p>
+			<p>
+				Afin que nos gousses soient toujours de qualité, il est important de prendre différents éléments en
+				                compte :
+			</p>
+			<ul>
+				<li>La zone de production, qui reste la même depuis plusieurs années</li>
+				<li>Le temps de maturité des gousses</li>
+				<li>Le taux d’humidité</li>
+				<li>La teneur en vanilline qui reflète leur aromatique globale</li>
+			</ul>
+			<p>
+				Pour une commande particulière ou information, n’hésitez pas à nous contacter, votre grossiste de
+				                gousses vanille vous répondra dans les meilleurs délais.
+			</p>
+		</div>
+	</section>
+
+	<section class="section-padding last">
+		<div class="container text-justify">
+			<div class="row">
+				<div class="col-lg-6">
+					<h4 class="text-center">
+						Comment choisir sa vanille ?
+					</h4>
+					<br>
+					<p>
+						Il existe des centaines de variétés de vanille répertoriées à travers le monde. Seulement 3 variétés
+						                    sont reconnues mondialement dont la Vanille Bourbon de Madagascar que nous vous proposons à des prix
+						                    attractifs. De son nom scientifique la Vanilla Planifolia ou encore la Vanilla Fragrans, cette vanille
+						                    provient de l’île de Madagascar. Cependant toutes les vanilles provenant de l’Océan Indien, comme
+						                    celles de l’Île de la Réunion, des Comores ou encore des Seychelles, peuvent bénéficier de
+						                    l’appellation Bourbon.
+					</p>
+					<p>
+						Cette
+						<strong>vanille premium</strong>
+						est de couleur noir foncé et d’excellente qualité. Vendues en gousses de 3 ou plus, ou
+						                    simplement au gramme et kilogramme, cette vanille bourbon possède un parfum chaud et délicat avec
+						                    des touches de cacao. C’est la variété de vanille qui possède le taux de vanilline naturelle le plus
+						                    important.
+						                    Nos gousses sont naturellement très grasses et varient entre 16 et 22 cm de long, appellation dites gourmet. Cette vanille vous
+						                    permettra un usage universel. Commander vos gousses directement en ligne quelle que soit la
+						                    quantité.
+					</p>
+				</div>
+				<div class="col-lg-6">
+					<h4 class="text-center">
+						Comment conserver vos gousses de vanille
+					</h4>
+					<br>
+					<p>
+						Les gousses sont conservées dans nos entrepôts parisiens à l’abri des sources de chaleur et de la
+						                    lumière. Cette conservation permet de ne pas endommager les arômes. Lors de la livraison elles sont
+						                    conservées sous-vide. Dès la réception Nous vous conseillons de conserver vos gousses dans un bocal
+						                    hermétique ou un sachet hermétique au réfrigérateur. Enroulées dans du papier sulfurisé dans une
+						                    boite hermétique au réfrigérateur, il est possible que vos gousses développent de petits points ;
+						                    ceux-ci disparaîtront en quelques minutes à température ambiante.
+					</p>
+					<p>
+						Lors de cette conservation le développement des arômes de vos gousses ne sera pas stoppéet
+						                    continuera à se faire progressivement sur plusieurs mois.
+						                    L’affinage de nos gousses de vanille vendues en ligne est naturel et se fait sur plusieurs mois.
+						                    Au réfrigérateur la conservation peut se faire 12 mois. C’est la méthode la plus recommandée et la
+						                    plus utilisée en restauration.<br>
+						Il est également possible de congeler vos gousses de
+						<strong>vanille premium</strong>
+						en les enroulant une à une dans du
+						                    papier film.
+					</p>
+				</div>
+			</div>
+			<br><br>
+			<div class="row">
+				<div class="col-lg-6">
+					<h4 class="text-center">
+						Choisir le contenant pour sa gousse ?
+					</h4>
+					<br>
+					<p>
+						Les gousses vendues à l’unité sont conservées dans des tubes en verre.
+						<strong>Les tubes ont l’avantage d’offrir une présentation plus raffinée</strong>
+						tout en gardant la vanille fraîche
+						                    qui pourrait sécher si les gousses sont à l’air libre.
+					</p>
+					<p>
+						Les gousses vendues au kilogramme sont plus économiques mais destinées aux consommateurs réguliers ou
+						                    professionnels. Lors de l’ouverture du sachet sous-vide il est important de placer les gousses de
+						                    vanille dans un contenant hermétique afin de conserver toute la saveur et fraîcheur de ses gousses
+						                    de vanille bourbon.<strong>
+							N’attendez plus pour commander vos gousses de vanille en ligne.</strong>
+					</p>
+				</div>
+				<div class="col-lg-6">
+					<h4 class="text-center">
+						Acheter vos gousses de vanilles premium
+					</h4>
+					<br>
+					<p>
+						La taille de nos gousses varie de 16 à 22 cm. En grande surface vous ne trouverez que des gousses de 13 cm
+						                    environ car ce sont les plus répandues.
+					</p>
+					<p>
+						Les arômes des gousses des grandes surfaces ont souvent une odeur de fermentation, de créosote ou
+						                    d’alcool. Les arômes de nos gousses de vanille de Madagascar vendues en lignes, ont un arôme intense
+						                    immédiatement identifiable avec une légère note de cacao, une spécialité de la région productrice.
+
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="section-colored">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 mx-auto my-auto text-center">
+					<a href="https://www.facebook.com/pg/vanillepremium/posts/" target="_blank" class="h1 text-light">
+						Suivez-nous sur
+						<i class="fab fa-facebook"></i>acebook</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="section-padding">
+		<div class="container text-justify">
+			<h2 class="text-center">Comment utiliser nos gousses de vanille premium ?
+			</h2>
+			<div class="shape"></div>
+			<p>
+				Il existe plusieurs moyens pour consommer nos gousses de
+				<strong>vanille premium</strong>
+				vendues en ligne. Il est possible de la
+				            broyer et de la mélanger avec du sucre de qualité pour avoir une bonne base pour vos pâtisseries.
+			</p>
+			<p>
+				Vous pouvez également préparer du sirop de vanille ou des alcools fort comme du rhum vanille.
+				            Certaines personnes préfèrent conserver l’authenticité de la gousse en la fendant dans sa longueur afin d’y
+				            extraire le caviar de vanille. Les graines qui se trouvent à l’intérieur sont très aromatisées.
+			</p>
+			<p>
+				L'intérieur de la gousse est tout aussi important que l'extérieur. Une fois l’avoir utilisé dans une recette, il est possible de la faire sécher et de la broyer
+				            afin de fabriquer son propre sucre vanillé.
+			</p>
+			<p>
+				<strong>Nos gousses de vanille vendues en ligne, sont réutilisables plusieurs fois grâce à leur forte teneur en
+					            arôme naturel.</strong>
+				Il n’est pas nécessaire d’utiliser plusieurs gousses pour vos recettes. Notre vanille étant d’excellente
+				            qualité, une demi-gousse travaillée en basse température, suffira à aromatiser l’ensemble de vos mets les
+				            plus gourmands.
+			</p>
+		</div>
+	</section>
+{% endblock %}

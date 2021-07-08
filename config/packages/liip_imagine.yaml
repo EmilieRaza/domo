@@ -1,0 +1,121 @@
+liip_imagine:
+   # define your filter sets under this option
+   filter_sets:
+
+       # an example thumbnail transformation definition
+       # https://symfony.com/doc/current/bundles/LiipImagineBundle/basic-usage.html#create-thumbnails
+        thumb:
+
+           # set your image quality defaults
+           quality: 75
+
+           # setup the filter steps to apply for this transformation
+           filters:
+            #    watermark:
+            #        image: '../public/img/watermark.png'
+            #        position: 'center'
+            #        size: 0.5
+               # scale and square the image to the given dimensions
+               thumbnail:
+                   size:          [360, 230]
+                   mode:          outbound
+
+        thumb_read:
+
+           # set your image quality defaults
+           quality: 75
+
+           # setup the filter steps to apply for this transformation
+           filters:
+               # scale and square the image to the given dimensions
+               thumbnail:
+                   size:          [540, 400]
+                   mode:          outbound
+
+        thumb_category:
+
+            # set your image quality defaults
+            quality: 75
+
+            # setup the filter steps to apply for this transformation
+            filters:
+                # scale and square the image to the given dimensions
+                thumbnail:
+                    size:          [600, 400]
+                    mode:          outbound
+
+        thumb_editor:
+
+           # set your image quality defaults
+           quality: 75
+
+           # setup the filter steps to apply for this transformation
+           filters:
+
+               # scale and square the image to the given dimensions
+               scale:
+
+                    # given 1920x1600px -> output 960x800px (relative down-scale)
+                    to: 0.5
+
+        thumb_cart:
+
+           # set your image quality defaults
+           quality: 75
+
+           # setup the filter steps to apply for this transformation
+           filters:
+    
+               # scale and square the image to the given dimensions
+               thumbnail:
+                   size:          [100, 67]
+                   mode:          outbound
+
+        slider:
+           
+           # set your image quality defaults
+           quality: 75
+
+           # setup the filter steps to apply for this transformation
+           filters:
+
+               # scale and square the image to the given dimensions
+               thumbnail:
+                   size:          [1920, 1280]
+                   mode:          outbound
+
+#liip_imagine:
+#    # valid drivers options include "gd" or "gmagick" or "imagick"
+#    driver: "gd"
+#
+#    # define your filter sets under this option
+#    filter_sets:
+#
+#        # an example thumbnail transformation definition
+#        # https://symfony.com/doc/current/bundles/LiipImagineBundle/basic-usage.html#create-thumbnails
+#        squared_thumbnail:
+#
+#            # set your image quality defaults
+#            jpeg_quality:          85
+#            png_compression_level: 8
+#
+#            # setup the filter steps to apply for this transformation
+#            filters:
+#
+#                # auto rotate the image using EXIF metadata
+#                auto_rotate: ~
+#
+#                # strip the image of all metadata
+#                strip: ~
+#
+#                # scale and square the image to the given dimensions
+#                thumbnail:
+#                    size:          [253, 253]
+#                    mode:          outbound
+#                    allow_upscale: true
+#
+#                # create border by placing image on larger black background
+#                background:
+#                    size:     [256, 256]
+#                    position: center
+#                    color:    '#fff'

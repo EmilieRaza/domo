@@ -1,0 +1,30 @@
+
+<div class="container">
+    <div class="card-property form">
+        {{ form_start(form)}}
+            <div class="row align-items-end">
+                <div class="col-md-10">
+                    <div class="row">
+                        <div class="col-md-6 col-lg-3">
+                        {{ form_row(form.minArea)}}
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                                {{ form_row(form.maxArea)}}
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                                {{ form_row(form.minPrice)}}
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                                {{ form_row(form.maxPrice)}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <button class="btn btn-primary">Filtrer <i class="fas fa-filter"></i></button>
+                    </div>
+                </div>
+            </div>
+        {{form_end(form)}}
+    </div>
+</div>

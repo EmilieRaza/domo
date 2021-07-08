@@ -1,0 +1,26 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% extends "front/layout.html.twig" %}
+
+{% block content %}
+    {% block banner %}
+        <section class="banner pages">
+            <div class="container">
+                <div class="middle">
+                    <h1>{{ 'registration.confirmed'|trans({'%username%': user.username}) }}</h1>
+                </div>
+            </div>
+        </section>
+    {% endblock %}
+    <section class="section-padding">
+        <div class="container">
+            <div class="bg-success text-light">
+                <p>{{ 'registration.check_email'|trans({'%email%': user.email}) }}</p>
+            </div>
+        </div>
+    </section>
+{% endblock content %}
+
+{% block footer %}{% endblock footer %}
+
+

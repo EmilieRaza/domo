@@ -1,0 +1,59 @@
+{% extends 'back/layout.html.twig' %}
+
+{% block title %} Voir {{'Page'|transchoice(1)}} {% endblock %}
+
+{% block content %}
+
+<section class="section-padding">
+    <div class="container">
+        <h1>Voir {{'Page'|transchoice(1)}}</h1>
+        <div class="shape"></div>
+
+        <div class="text-right mt-4">
+            <a href="{{ path('admin_page_search') }}" class="btn btn-primary" role="button">
+                <i class="fa fa-reply"></i> Retour
+            </a>
+        </div>
+        <div class="card mt-4 mb-4">
+            <div class="card-header text-center">
+                <h4>Détail {{'Page'|transchoice(1)}}</h4>
+            </div>
+            <div class="card-content">
+                    <div class="read-content">
+                        <h1>{{ page.title }}</h1>
+                    </div>
+                    <div class="read-content">
+                        <p>
+                            <strong>{% trans %}CreatedAt{% endtrans %}</strong> : 
+                            {{ page.createdAt ? page.createdAt|date('d/m/Y') : '' }}
+                        </p>
+                    </div>
+                    <hr>
+                    {% for pageBlock in page.pageBlocks %}
+                        <div class="read-content">
+                            <h2>{{pageBlock.title}}</h2>
+                            <br>
+                            {{pageBlock.content|raw}}
+                            {% if pageBlock.moreTitle %}
+                                <div class="more">
+                                    <div class="plus">
+                                        <i class="fas fa-plus-square fa-2x"></i>
+                                    </div>
+                                    <h3>{{pageBlock.moreTitle}}</h3>
+                                    {{pageBlock.moreContent|raw}}
+                                </div>
+                            {% endif %}
+                            <br>
+                            {% if pageBlock.pdfName %}
+                                <a href="{{ vich_uploader_asset(pageBlock, 'pdfFile') }}" class="btn btn-primary btn-block" target="_blank">
+                                    <i class="fas fa-file-pdf"></i> {{pageBlock.pdfTitle}}
+                                </a>
+                                <br>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,30 @@
+
+{% for row in products|batch(3) %}
+        {% for product in row %}
+            <a href="{{ path('product', {'id': product.id, 'title':product.title|my_url_encode}) }}">
+                <ul class="list-group list-group-flush list-unstyled">
+                    <li class="fw-bold mb-1">
+                        <div class="bg-light p-3 shadow-sm" >
+                            <div class="row">
+                                <div class="col-md-4">
+                                 {% if product.images|length > 0 %}
+                                    <img src="{{ vich_uploader_asset(product.images.0, 'imageFile') | imagine_filter('thumb') }}" alt="{{product.title}}"  class="w-100 rounded"> 
+                                 {% else %}
+                                  <img src="{{ asset('build/images/default-image.jpg') | imagine_filter('thumb') }}" alt="{{product.title}}" class="w-100 rounded">
+                                {% endif %}
+                                </div>
+                                <div class="col-md-8 text-dark">
+                                    {% set title = product.title|length > 50 ? product.title|slice(0, 50) ~ '...' : product.title %}
+                                    <span class="">{{title|striptags|raw}}</span>
+                                <span class="">{{ product.price }} € HT</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </a>
+  {% endfor %}
+
+{% endfor %}
+
+

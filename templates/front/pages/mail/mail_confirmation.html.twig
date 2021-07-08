@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmation de réception de votre demande</title>
+</head>
+<body>
+    Bonjour {{ contact_name }}, <br>
+
+    <p>
+        Votre demande nous a bien été transmise.<br>
+        Notre équipe vous recontactera dans les plus brefs délais le temps de préparer une réponse ou une offre adaptée à votre besoin.
+    </p>
+    <p>Dans l'attente, n'hésitez pas à consulter notre site internet <a href="{{absolute_url(path('home'))}}">{{absolute_url(path('home'))}}</a>.
+    </p>
+    <p>L'équipe de {{conf_company_name}} vous remercie.</p>
+    <br>
+    <i><small>Veuillez noter que ceci est un email automatique de <a href="{{absolute_url(path('home'))}}">{{absolute_url(path('home'))}}</a></small><i/>
+</body>
+</html>

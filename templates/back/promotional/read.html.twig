@@ -1,0 +1,62 @@
+{% extends 'back/layout.html.twig' %}
+
+{% block title %} Voir {{'Promotional'|transchoice(1)}} {% endblock %}
+
+{% block content %}
+
+<section class="section-padding">
+    <div class="container">
+        <h1>Voir {{'Promotional'|transchoice(1)}}</h1>
+        <div class="shape"></div>
+
+        <div class="text-right mt-4">
+            <a href="{{ path('admin_promotional_search') }}" class="btn btn-primary" role="button">
+                <i class="fa fa-reply"></i> Retour
+            </a>
+        </div>
+        <div class="card mt-4 mb-4">
+            <div class="card-header text-center">
+                <h4>Détail {{'Promotional'|transchoice(1)}}</h4>
+            </div>
+            <div class="card-content">
+                                    <div class="read-content">
+                        <p>
+                            <strong>{% trans %}Id{% endtrans %}</strong> : 
+                            {{ promotional.id }}
+                        </p>
+                    </div>
+                                    <div class="read-content">
+                        <p>
+                            <strong>{% trans %}Code{% endtrans %}</strong> : 
+                            {{ promotional.code }}
+                        </p>
+                    </div>
+                                    <div class="read-content">
+                        <p>
+                            <strong>{% trans %}IsCustomer{% endtrans %}</strong> : 
+                            {{ promotional.isCustomer ? 'Yes' : 'No' }}
+                        </p>
+                    </div>
+                                    <div class="read-content">
+                        <p>
+                            <strong>{% trans %}IsActive{% endtrans %}</strong> : 
+                            {{ promotional.isActive ? 'Yes' : 'No' }}
+                        </p>
+                    </div>
+                                    <div class="read-content">
+                        <p>
+                            <strong>{% trans %}CreatedAt{% endtrans %}</strong> : 
+                            {{ promotional.createdAt ? promotional.createdAt|date('Y-m-d H:i:s') : '' }}
+                        </p>
+                    </div>
+                                    <div class="read-content">
+                        <p>
+                            <strong>{% trans %}UpdatedAt{% endtrans %}</strong> : 
+                            {{ promotional.updatedAt ? promotional.updatedAt|date('Y-m-d H:i:s') : '' }}
+                        </p>
+                    </div>
+                            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

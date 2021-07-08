@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+   <title>Formulaire de contact</title>
+</head>
+<body>
+    Bonjour, <br>
+
+    <p>Le formulaire de contact de votre site internet <a href="{{absolute_url(path('home'))}}">{{absolute_url(path('home'))}}</a> vient d'être complété : </p>
+	<p>
+	<h2 style='margin-bottom:5px;'>Fiche contact</h2>
+    <strong>Type de demande</strong>:  {{contact_type }}<br>
+    <strong>Nom & Prénom</strong>: {{ contact_name }}<br>
+    <strong>Email</strong>:  {{ contact_email }}<br>
+    <strong>Téléphone</strong>:  {{ contact_phone }}<br>
+    <h2 style='margin-bottom:5px;'>Message</h2>
+    {{contact_message|raw }}
+    <br>
+    <i><small>Veuillez noter que ceci est un email automatique de <a href="{{absolute_url(path('home'))}}">{{absolute_url(path('home'))}}</a></small><i/>
+</body>
+</html>

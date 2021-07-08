@@ -1,0 +1,10 @@
+fos_user:
+    from_email:
+        sender_name: Vanille Premium
+        address: "ne-pas-repondre1@form.bhinternet.fr"
+    db_driver: orm
+    firewall_name: main
+    user_class: App\Entity\User
+    registration:
+        form:
+            type: App\Form\RegistrationType

@@ -1,0 +1,97 @@
+{% extends 'front/layout.html.twig' %}
+
+{% block title %}{{ product.title}} 
+{% endblock %}
+
+{% block content %}
+    {% block banner %}
+    {% endblock %}
+ <!-- fiche produit-->
+<div class="row bg-light mt-5 pt-5" >
+    <div class="col-md-10">
+            <div class="py-3 bg-light " >
+                <div class="container px-5 my-5 mb-0">               
+                    <!-- single product details -->
+                    <div class="small-container single-product">
+                        <div class="row">
+                        <div class="col-2">
+                            {% include "front/blocks/slider-product.html.twig" %}
+                        </div>
+                        <div class="col-2">
+                            <p>Batiment / Bois</p>
+                            <h1>{{ product.title}}</h1>
+                            <h4>329,00€ HT</h4>
+                            <input type="number" value="1" />
+                            <a href="" class="btn btn-red">Ajouter au panier</a>
+
+                            <br />
+                            <p> {{  product.shortDesc|striptags('<br><p><strong><em>')|raw }}</p>
+                        </div>
+                        </div>
+                    </div>
+                </div>            
+            </div>
+    </div>
+    <div class="col-md-2">
+        <aside class="btn-red bg-gradient rounded-3 p-4 mt-5" style="position: fixed;top: 120px;">
+            <div class="d-flex align-items-center justify-content-between flex-column flex-xl-row text-center text-xl-start">
+                <div class="mb-4 mb-xl-12">
+                    <div class="fs-3 fw-bold text-white text-uppercase text-center">Produits similaires</div>
+                    <!-- <div class="text-white-50">Découvrez la liste de nos références</div> <br> -->
+                    <div class="card-body p-0">
+                    {% if products %}
+                        {% include "front/blocks/product_similaire.html.twig" %}
+
+                    {% else %}
+                            <ul class="list-group list-group-flush list-unstyled">
+                            <li class="fw-bold mb-1">
+                            <div class="bg-light p-3 shadow-sm" >
+                                    <div class="row">
+                                        <p class="text-center">Aucun produit similaire...</p>
+                                </div>
+                                
+                            </li>
+                        </ul>
+                    {% endif %}
+                        
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+</div>
+ <section class="py-5">
+            <div class="container px-5 my-5">
+
+                <!-- Référence-->
+                <aside class="btn-red bg-gradient rounded-3 p-4 p-sm-5 mt-5">
+                    <div class="d-flex align-items-center justify-content-between flex-column flex-xl-row text-center text-xl-start">
+                        <div class="mb-4 mb-xl-12">
+                            <div class="fs-3 fw-bold text-white text-uppercase">nos références</div>
+                            <div class="text-white-50">Découvrez la liste de nos références</div> <br>
+                            <img src="assets/partenaires/1.jpg" class="rounded" style="width:90px"/>
+                            <img src="assets/partenaires/2.jpg" class="rounded" style="width:90px"/>
+                            <img src="assets/partenaires/3.jpg" class="rounded" style="width:90px"/>
+                            <img src="assets/partenaires/4.jpg" class="rounded" style="width:90px"/>
+                            <img src="assets/partenaires/5.jpg" class="rounded" style="width:90px"/>
+                            <img src="assets/partenaires/6.jpg" class="rounded" style="width:90px"/>
+                            <img src="assets/partenaires/7.jpg" class="rounded"style="width:90px"/>
+                            <img src="assets/partenaires/8.jpg" class="rounded" style="width:90px"/>
+                            <img src="assets/partenaires/9.jpg" class="rounded" style="width:90px"/>
+                            <img src="assets/partenaires/10.jpg" class="rounded" style="width:90px"/>
+                            <img src="assets/partenaires/11.jpg" class="rounded" style="width:90px"/>
+                        </div>
+                        
+                        <!-- <div class="ms-xl-4">
+                            <div class="input-group mb-2">
+                                <input class="form-control" type="text" placeholder="Email address..." aria-label="Email address..." aria-describedby="button-newsletter" />
+                                <button class="btn btn-outline-light" id="button-newsletter" type="button">Sign up</button>
+                            </div>
+                            <div class="small text-white-50">We care about privacy, and will never share your data.</div>
+                        </div> -->
+                    </div>
+                </aside>
+            </div>
+            </section>
+           
+{% endblock %}

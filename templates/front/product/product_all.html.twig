@@ -1,0 +1,75 @@
+{% extends 'front/layout.html.twig' %}
+
+{% block title %}Nos produits{% endblock %}
+{% block description %}Domosystem {% endblock %}
+
+{% block content %}
+    {% block banner %}
+        <section class="banner pages"> bg-banner1
+            <div class="container">
+                <div class="middle">
+                    <h1 class="text-uppercase">Nos produits</h1>
+                </div>
+            </div>
+        </section>
+    {% endblock %}
+<nav class="navbar navbar-expand-custom navbar-mainbg">
+        {# <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars text-white"></i>
+        </button> #}
+        <center> <div class="collapse navbar-collapse" id="navbarSupportedContent">
+       
+            <ul class="navbar-nav" style="margin: 0 auto!important;">
+                <li class="nav-item">
+                   <img src="{{ asset('build/images/icone-bat3.png')}}" style="width:80px!important">
+                </li>
+                 <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);">Maçonnerie</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);"></i>Bois</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);">Air</a>
+                </li>
+                
+                <li class="nav-item">
+                   <img src="{{ asset('build/images/icone-industrie3.png')}}" style="width:80px!important">
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);">Papier</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);">Textil & Cuir</a>
+                </li>
+                <li class="nav-item">
+                   <img src="{{ asset('build/images/icone-biomasse.png')}}" style="width:80px!important">
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);">Bois</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);">Paille</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);">Tourbe & Boue</a>
+                </li>
+                
+
+            </ul>
+        
+        </div> </center>
+    </nav>
+    
+    <section class="section-padding">
+        <div class="container">
+            {# <h2 class="text-center">Nos vanilles de qualités premium</h2>
+            <div class="shape"></div> #}
+            {% include "front/blocks/product_card.html.twig" %}
+
+            <div class="pagination">
+                {{ knp_pagination_render(products) }}
+            </div>
+        </div>
+    </section>
+{% endblock %}

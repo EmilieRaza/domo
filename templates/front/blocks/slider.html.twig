@@ -1,0 +1,11 @@
+<div id="slider" class="carousel slide" data-ride="carousel">
+	<div class="carousel-inner">
+        {% for slider in sliders %}
+            {% if slider.imagesName %}
+                <div class="carousel-item {% if loop.index0 %}active{% endif %}">
+                    <div class="slider-img" style="background-image: url({{ vich_uploader_asset(slider, 'imagesFile') | imagine_filter('slider') }});"></div>
+                </div>
+            {% endif %}
+        {% endfor %}
+	</div>
+</div>

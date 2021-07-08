@@ -1,0 +1,50 @@
+{% extends 'back/layout.html.twig' %}
+
+{% block title %} Voir {{'Weight'|transchoice(1)}} {% endblock %}
+
+{% block content %}
+
+<section class="section-padding">
+    <div class="container">
+        <h1>Voir {{'Weight'|transchoice(1)}}</h1>
+        <div class="shape"></div>
+
+        <div class="text-right mt-4">
+            <a href="{{ path('admin_weight_search') }}" class="btn btn-primary" role="button">
+                <i class="fa fa-reply"></i> Retour
+            </a>
+        </div>
+        <div class="card mt-4 mb-4">
+            <div class="card-header text-center">
+                <h4>Détail {{'Weight'|transchoice(1)}}</h4>
+            </div>
+            <div class="card-content">
+                                    <div class="read-content">
+                        <p>
+                            <strong>{% trans %}Id{% endtrans %}</strong> : 
+                            {{ weight.id }}
+                        </p>
+                    </div>
+                                    <div class="read-content">
+                        <p>
+                            <strong>{% trans %}Value{% endtrans %}</strong> : 
+                            {{ weight.value }}
+                        </p>
+                    </div>
+                                    <div class="read-content">
+                        <p>
+                            <strong>{% trans %}CreatedAt{% endtrans %}</strong> : 
+                            {{ weight.createdAt ? weight.createdAt|date('Y-m-d H:i:s') : '' }}
+                        </p>
+                    </div>
+                                    <div class="read-content">
+                        <p>
+                            <strong>{% trans %}UpdatedAt{% endtrans %}</strong> : 
+                            {{ weight.updatedAt ? weight.updatedAt|date('Y-m-d H:i:s') : '' }}
+                        </p>
+                    </div>
+                            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

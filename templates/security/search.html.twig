@@ -1,0 +1,192 @@
+{% extends 'back/layout.html.twig' %}
+{% block title 'Gestion des utilisateurs' %}
+
+{% block content %}
+
+{# ///////////////// MODAL DELETE ////////////////////#}
+    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Suppression d'un utilisateur</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+              <form method="post" action="">
+                    <input id="token" type="hidden" name="_token" value="">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit" class="btn btn-danger">Supprimer</button>
+              </form>
+            </div>
+          </div>
+        </div>
+    </div>
+{# ///////////////// END MODAL DELETE ////////////////////#}
+
+<section class="section-padding">
+    <div class="container-fluid">
+        <h1>Gestion des utilisateurs</h1>
+        <div class="shape"></div>
+        <div class="card mt-4 mb-4">
+                <div class="card-header text-center">
+                    <h4>Liste des utilisateurs</h4>
+                </div>
+                <div class="card-body">   
+                <div class="table-responsive">           
+                    <table class="table table-striped table-bordered"  id="dataTable" width="100%" cellspacing="0" data-page-length='50'>
+                        <thead>
+                            <tr>
+                                <th>Nom / Prénom</th>
+                                <th>Email</th>
+                                <th>Type de compte</th>
+                                <th>Phone</th>
+                                <th>Company</th>
+                                <th>Dernière connexion</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% if users %}
+                            {% for user in users %}
+                                <tr>
+                                    <td>
+                                        {% if user.firstname and user.lastname %}
+                                            {{ user.firstname }} {{ user.lastname }}</td>
+                                        {% else %}
+                                            {{ user.username }}
+                                        {% endif %}
+                                    <td>{{ user.email}}</td>
+                                    <td>
+                                        {% if user.granted("ROLE_SUPER_ADMIN")%}
+                                            Super Administrateur
+                                        {% elseif user.granted("ROLE_ADMIN") %}
+                                            Administrateur
+                                        {% elseif user.granted("ROLE_CUSTOMER") %}
+                                            Professionnel
+                                        {% else %}
+                                            Compte utilisateur
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ user.phone }}</td>
+                                    <td>{{ user.company }}</td>
+                                    <td>{{ user.lastLogin|date('d/m/Y') }}</td>
+                                    <td>
+                                        {% if user.granted("ROLE_SUPER_ADMIN")%}
+                                            {% if is_granted('ROLE_ADMIN') %}
+                                                <a href="#" class="btn btn-danger btn-delete" data-toggle="modal" data-target="#delete" id="{{user.id}}"
+                                                    data-title="{{ user.username }}" data-path="{{ path('admin_security_delete', {id: user.id}) }}">
+                                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                                </a>
+                                                {# <a href="{{ path('admin_security_update', {'id': user.id}) }}" title="Modifier" class="btn btn-warning"
+                                                    aria-label="Modifier">
+                                                    Voir <i class="fas fa-edit"></i>
+                                                </a> #}
+                                                <form action="{{ path('admin_security_isactive', {id: user.id}) }}" method="post">
+                                                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('isactive') }}" />
+                                                    <input type="hidden" name="_method" value="ISACTIVE">
+                                                    {% if user.enabled %}
+                                                    <button type="submit" class="btn btn-warning my-2">
+                                                        <i class="fas fa-pause"></i> Désactiver
+                                                    </button>
+                                                    {% else %}
+                                                    <button type="submit" class="btn btn-success my-2">
+                                                        <i class="fas fa-play"></i> Activer
+                                                    </button>
+                                                    {% endif %}
+                                                </form>
+                                            {% endif %}
+                                        {% else %}
+                                            <a href="#" class="btn btn-danger btn-delete" data-toggle="modal" data-target="#delete" id="{{user.id}}" data-title="{{ user.username }}" data-path="{{ path('admin_security_delete', {id: user.id}) }}">
+                                                <i class="fa fa-times" aria-hidden="true"></i>
+                                            </a>
+                                            {# <a href="{{ path('admin_security_update', {'id': user.id}) }}" title="Modifier" class="btn btn-warning"
+                                                aria-label="Modifier">
+                                                Modifier <i class="fas fa-edit"></i>
+                                            </a> #}
+                                            <form action="{{ path('admin_security_isactive', {id: user.id}) }}" method="post">
+                                                <input type="hidden" name="_csrf_token" value="{{ csrf_token('isactive') }}"/>
+                                                <input type="hidden" name="_method" value="ISACTIVE">
+                                                {% if user.enabled %}
+                                                    <button type="submit" class="btn btn-warning">
+                                                        <i class="fas fa-pause"></i> Désactiver
+                                                    </button>
+                                                {% else %}
+                                                    <button type="submit" class="btn btn-success">
+                                                            <i class="fas fa-play"></i> Activer
+                                                    </button>
+                                                {% endif %}
+                                            </form>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td>Aucun enregistrement</td>
+                            </tr>
+                        {% endif %}
+                        </tbody>
+                    </table>
+                 </div>  
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('datatables/jquery.dataTables.js')}}"></script>
+    <script src="{{ asset('datatables/dataTables.bootstrap4.js')}}"></script> 
+
+    <script>
+            $(document).ready(function(){
+                $(document).on ("click", ".btn-delete", function () {
+                    var id = $(this).attr('id');
+                    var title = $(this).attr('data-title');
+                    var path = $(this).attr('data-path');
+                    $('#delete .modal-footer form').attr('action', path);
+                    $('#delete #token').val("{{ csrf_token('delete' ~"+id+") }}");
+                    $('#delete .modal-body').html("<p>Confirmez-vous la suppression de l'utilisateur: <strong>"+title+"</strong></p>");
+                });
+            });
+    </script>
+
+    <script>
+        $(document).ready(function(){$("#dataTable").DataTable()});
+    </script>
+
+    <script type="text/javascript">
+        $('#dataTable').DataTable( {
+            language: {
+                processing:     "Traitement en cours...",
+                search:         "Rechercher&nbsp;:",
+                lengthMenu:    "Afficher _MENU_ &eacute;l&eacute;ments",
+                info:           "Affichage de l'&eacute;lement _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+                infoEmpty:      "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 &eacute;l&eacute;ments",
+                infoFiltered:   "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+                infoPostFix:    "",
+                loadingRecords: "Chargement en cours...",
+                zeroRecords:    "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                emptyTable:     "Aucune donnée disponible dans le tableau",
+                paginate: {
+                    first:      "Premier",
+                    previous:   "Pr&eacute;c&eacute;dent",
+                    next:       "Suivant",
+                    last:       "Dernier"
+                },
+                aria: {
+                    sortAscending:  ": activer pour trier la colonne par ordre croissant",
+                    sortDescending: ": activer pour trier la colonne par ordre décroissant"
+                }
+            },
+
+            aaSorting: []
+        } );
+    </script>
+{% endblock %}

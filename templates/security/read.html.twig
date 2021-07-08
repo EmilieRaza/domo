@@ -1,0 +1,35 @@
+{% extends 'back/layout.html.twig' %}
+
+{% block title %} Voir {{user.username}} {% endblock %}
+
+{% block content %}
+
+<section class="section-padding">
+    <div class="container">
+        <h1>Voir {{user.username}} </h1>
+        <div class="shape"></div>
+
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <div class="card">
+                    <div class="card-body">
+                        <ul>
+                            <li><h5>Nom / Prenom:
+                                {% if user.firstname and user.lastname %}
+                                    {{ user.firstname }} {{ user.lastname }}</td>
+                                {% else %}
+                                    {{ user.username }}
+                                {% endif %}
+                                </h5>
+                            </li>
+                            <li><h5>Email: {{ user.email }}</h5></li>
+                            <li><h5>Telephone: {{ user.phone }}</h5></li>
+                            <li><h5>Entreprise: {{ user.company }}</h5></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

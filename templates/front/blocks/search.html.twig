@@ -1,0 +1,27 @@
+<div class="card-property form">
+    {{ form_start(form)}}
+        <div class="align-baseline">
+            <div class="row">
+                <div class="col-md-6 col-lg-3">
+                {{ form_row(form.type)}}
+                </div>
+                <div class="col-md-6 col-lg-3">
+                        {{ form_row(form.contract)}}
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div id="locality_select">
+                        {{ form_row(form.locality)}}
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-block"><i class="fas fa-search"></i> Rechercher</button>
+                    </div>
+                </div>
+            </div>
+            <div id="input_hidden">
+                 {{ form_row(form.autherLocality) }}
+            </div>
+        </div>
+    {{form_end(form)}}
+</div>

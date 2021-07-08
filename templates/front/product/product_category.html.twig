@@ -1,0 +1,29 @@
+{% extends 'front/layout.html.twig' %}
+
+{% block title %}{{category.name}}{% endblock %}
+{% block description %}{% endblock %}
+
+{% block content %}
+    {% block banner %}
+        <section class="banner pages">
+            <div class="container">
+                <div class="middle">
+                    <h1>{{category.name}}</h1>
+                </div>
+            </div>
+        </section>
+    {% endblock %}
+
+
+    <section class="section-padding">
+        <div class="container">
+            <h2 class="text-center">{{category.content|raw}}</h2>
+            <div class="shape"></div>
+            {% include "front/blocks/product_card.html.twig" %}
+
+            <div class="pagination">
+                {{ knp_pagination_render(products) }}
+            </div>
+        </div>
+    </section>
+{% endblock %}

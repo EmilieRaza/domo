@@ -1,0 +1,68 @@
+{% extends 'front/layout.html.twig' %}
+
+{% block title %}
+    {% if page.metaTitle%}
+        {{ page.metaTitle}}
+    {% else %}
+        {{ page.title}}
+    {% endif %}
+{% endblock %}
+
+{% block description %}{{ page.metaDescription}}{% endblock %}
+
+{% block content %}
+        {% block banner %}
+            {% if page.type == 'content' %}
+                <section class="banner pages">
+                        <div class="middle">
+                            <h1 class="text-center">{{ page.title}}</h1>
+                        </div>
+                    </div>
+                </section>
+            {% else %}
+                 <section class="no-banner">
+                </section>
+            {% endif %}
+        {% endblock %}
+
+    <section class="section-padding">
+        <div class="container">
+        
+              {% if page.type == 'information' %}
+                <h1 class="text-center">{{ page.title}}</h1>
+                <div class="shape"></div>
+                <br>
+             {% endif %}
+
+             {% for pageBlock in page.pageBlocks %}
+                 {% if pageBlock.title %}
+                    <h2 class="text-center">{{pageBlock.title}}</h2>
+                    <div class="shape"></div>
+                    <br>
+                {% endif %}
+                <div class="row">
+                    <div class="col-lg-9 mx-auto text-justify pageBlock overflow-hidden block-text">
+                        {{pageBlock.content|raw}}
+                        {% if pageBlock.moreTitle %}
+                            <div class="more">
+                                <div class="plus">
+                                    <i class="fas fa-plus-square fa-2x"></i>
+                                </div>
+                                <h3>{{pageBlock.moreTitle}}</h3>
+                                {{pageBlock.moreContent|raw}}
+                            </div>
+                        {% endif %}
+                        <br>
+                        {% if pageBlock.pdfName %}
+                            <a href="{{ vich_uploader_asset(pageBlock, 'pdfFile') }}" class="btn btn-primary btn-block" target="_blank">
+                                <i class="fas fa-file-pdf"></i> {{pageBlock.pdfTitle}}
+                            </a>
+                            <br>
+                        {% endif %}
+                    </div>                    
+                </div>
+             {% endfor %}
+        </div>
+    </section>
+{% endblock %}
+

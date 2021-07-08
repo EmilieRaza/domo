@@ -1,0 +1,48 @@
+{% for product in products %}
+	<div class="flexbox">
+		<div class="inner-flexbox imgBg" {% if product.images|length > 0 %} style="background-image: url({{ vich_uploader_asset(product.images.0, 'imageFile') | imagine_filter('thumb_read') }})" {% else %} style="background-image: url({{ asset('build/images/default-image.jpg') | imagine_filter('thumb_read') }})" {% endif %}></div>
+		<div class="inner-flexbox">
+			<div class="flexbox-text text-center">
+				<h3>{{product.title}}</h3>
+				<p>
+					{{product.shortDesc|raw}}
+				</p>
+				{% if product.solde > 0 %}
+					<h4>
+						<small>
+							{% if product.weight %}
+								{{ product.weight }}
+							{% else %}
+								{{ product.size }}
+							{% endif %}
+						</small>
+						|
+						{{product.priceSolde}}
+						€
+						<small>
+							<del>{{ product.price }}
+								€</del>
+						</small>
+					</h4>
+				{% else %}
+					<h4>
+						<small>
+							{% if product.weight %}
+								{{ product.weight }}
+							{% else %}
+								{{ product.size }}
+							{% endif %}
+						</small>
+						|
+						{{ product.price }}
+						€</h4>
+				{% endif %}
+				<br>
+				<a href="{{ path('product', {'id': product.id, 'title':product.title|my_url_encode}) }}" class="btn btn-primary btn-block colored">
+					<i class="fas fa-shopping-cart"></i>
+					Acheter</a>
+			</div>
+		</div>
+	</div>
+
+{% endfor %}

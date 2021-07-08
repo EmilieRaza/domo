@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+	    <link rel="icon" href="{{ asset('build/images/favicon.png')}}" type="image/x-icon" />
+        <title> {% block title %}{% endblock %} | Domosystem Technologie </title>
+        <meta name="description" content="{% block description %}{% endblock %}">
+        {% block stylesheets %}
+        {% endblock %}
+    </head>
+    
+    <body>
+        {% set flashbag_messages = app.session.flashbag.all() %}
+        {% for type, messages in flashbag_messages %}
+            {% for message in messages %}
+                <div class="container message fadeInRight animated">
+                    <div class="flash-{{ type }} alert alert-{{ type }}" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <br>
+                        <p>{{ message|raw }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endfor %}
+        {% block body %}
+            {% block sidebar %}{% endblock %}
+            {% block navbar %}{% endblock %}
+            {% block content %}{% endblock %}
+            {% block footer %}{% endblock %}
+            {% block javascripts %}{% endblock %}
+        {% endblock %}
+    </body>
+   
+</html>

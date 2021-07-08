@@ -1,0 +1,89 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    locale: 'fr'
+    conf_company_name: 'Vanille Premium'
+    conf_company_phone1: '01 79 73 93 00'
+    conf_company_call_phone1: '+33179739300'
+    conf_company_email: 'contact@vanille-premium.fr'
+    conf_company_email2: 'hind@bhgroupe.fr'
+    conf_server_email: 'formulaire@bhinternet.fr'
+    conf_company_business: '10positif'
+    conf_company_siret: '822 549 275 00011'
+    conf_company_address: '11 rue du Bois de la Remise '
+    conf_company_zipcode: '91480'
+    conf_company_city: 'Varenne Jarcy'
+    conf_pk_stripe: 'pk_live_9vrfuoHpmJnuq9CclSH9ROU3'
+    conf_sk_stripe: 'sk_live_MOvwCWPK9tr3ReiDnhymE0dH'
+
+    # conf_pk_stripe: 'pk_test_WNtaAVui34AIeYKJh0lWp8XS'
+    # conf_sk_stripe: 'sk_test_aotSY4bHxv5xZgCk6vG4rMKc'
+    
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/*'
+        exclude: '../src/{DependencyInjection,Entity,Migrations,Maker,Tests,Kernel.php}'
+
+    # controllers are imported separately to make sure services can be injected
+    # as action arguments even if you don't extend any base controller class
+    App\Controller\:
+        resource: '../src/Controller'
+        tags: ['controller.service_arguments']
+
+    redirect_after_login:
+        class: App\Services\AfterLoginRedirection
+        arguments: ['@router']
+    
+    twig.extension.intl:
+        class: Twig_Extensions_Extension_Intl
+        tags:
+            - { name: twig.extension }
+
+    
+    # app.maker.crud:
+    #    class:  App\Maker\MakeCrud
+    #    public: true
+    #    arguments: ['@maker.doctrine_helper']
+    #    tags:
+    #        - { name: maker.command }
+
+    App\Listener\ImageCacheSubscriber:
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    app.listener.global_page_data:
+       class: App\Listener\GlobalPageDataListener
+       tags:
+           - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+    
+    # app.listener.registration_success:
+    #     class: App\Listener\RegistrationSuccessListener
+    #     arguments: ['@router']
+    #     tags:
+    #         - { name: kernel.event_subscriber }
+    
+    app.form.registration:
+        class: App\Form\RegistrationType
+        tags:
+            - { name: form.type, alias: app_user_registration }
+
+    App\Listener\ProductListener:
+        tags:
+           - { name: doctrine.event_subscriber }
+    # Webonaute\DoctrineFixturesGeneratorBundle\Command\GenerateDoctrineFixtureCommand:
+    #    tags:
+    #        - { name: 'console.command', command: 'doctrine:generate:fixture' }
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones

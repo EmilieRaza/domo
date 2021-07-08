@@ -1,0 +1,92 @@
+{% extends 'back/layout.html.twig' %}
+
+{% block title %} Voir {{'Product'|transchoice(1)}} {% endblock %}
+
+{% block content %}
+
+<section class="section-padding">
+    <div class="container">
+        <h1>Voir {{'Product'|transchoice(1)}}</h1>
+        <div class="shape"></div>
+
+        <div class="text-right mt-4">
+            <a href="{{ path('admin_product_search') }}" class="btn btn-primary" role="button">
+                <i class="fa fa-reply"></i> Retour
+            </a>
+        </div>
+        <div class="card mt-4 mb-4">
+            <div class="card-header text-center">
+                <h4>Détail {{'Product'|transchoice(1)}}</h4>
+            </div>
+            <div class="card-content">
+                                    <div class="read-content">
+                        <p>
+                            <strong>{% trans %}Id{% endtrans %}</strong> : 
+                            {{ product.id }}
+                        </p>
+                    </div>
+                                    <div class="read-content">
+                        <p>
+                            <strong>{% trans %}Title{% endtrans %}</strong> : 
+                            {{ product.title }}
+                        </p>
+                    </div>
+                                    <div class="read-content">
+                        <p>
+                            <strong>{% trans %}Price{% endtrans %}</strong> : 
+                            {{ product.price }}
+                        </p>
+                    </div>
+                                    <div class="read-content">
+                        <p>
+                            <strong>{% trans %}ShortDesc{% endtrans %}</strong> : 
+                            {{ product.shortDesc }}
+                        </p>
+                    </div>
+                                    <div class="read-content">
+                        <p>
+                            <strong>{% trans %}Solde{% endtrans %}</strong> : 
+                            {{ product.solde }}
+                        </p>
+                    </div>
+                                    <div class="read-content">
+                        <p>
+                            <strong>{% trans %}Sale{% endtrans %}</strong> : 
+                            {{ product.sale }}
+                        </p>
+                    </div>
+                                    <div class="read-content">
+                        <p>
+                            <strong>{% trans %}Category{% endtrans %}</strong> : 
+                            {{ product.category }}
+                        </p>
+                    </div>
+                                    <div class="read-content">
+                        <p>
+                            <strong>{% trans %}IsHome{% endtrans %}</strong> : 
+                            {{ product.isHome ? 'Yes' : 'No' }}
+                        </p>
+                    </div>
+                                    <div class="read-content">
+                        <p>
+                            <strong>{% trans %}IsActive{% endtrans %}</strong> : 
+                            {{ product.isActive ? 'Yes' : 'No' }}
+                        </p>
+                    </div>
+                                    <div class="read-content">
+                        <p>
+                            <strong>{% trans %}CreatedAt{% endtrans %}</strong> : 
+                            {{ product.createdAt ? product.createdAt|date('Y-m-d H:i:s') : '' }}
+                        </p>
+                    </div>
+                                    <div class="read-content">
+                        <p>
+                            <strong>{% trans %}UpdatedAt{% endtrans %}</strong> : 
+                            {{ product.updatedAt ? product.updatedAt|date('Y-m-d H:i:s') : '' }}
+                        </p>
+                    </div>
+                            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

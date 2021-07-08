@@ -1,0 +1,152 @@
+ <!-- Sidebar  -->
+<nav id="sidebar">
+    <div class="sidebar-header p-0">
+       <img src="{{ asset("/img/Domosystem-logo-2.jpg") }}" class="img-fluid" alt="Logo login" style="height: 80px;">
+    </div>
+
+    <ul class="list-unstyled components">
+        <p class="text-center"><strong>{{ "now"|localizeddate('full', 'none') }}</strong></p>
+
+        <li class="{% if slug == 'admin' %}active{% endif %}">
+            <a href="{{ path('admin') }}">Accueil</a>
+        </li>
+
+         <li class="{% if slug == 'admin_command' %}active{% endif %}">
+            {# <a href="{{ path('admin_command_search') }}">Liste des commandes</a> #}
+            <a>Liste des commandes</a>
+        </li>
+
+        <li class="{% if slug == 'admin_product' %}active{% endif %}">
+            <a href="#productSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Produits</a>
+            <ul class="collapse list-unstyled" id="productSubmenu">
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                    <li>
+                        <a href="{{ path('admin_product_create') }}">Ajouter un produit</a>
+                    </li>
+                {% endif %}
+                <li>
+                    <a href="{{ path('admin_product_search') }}">Liste des produits</a>
+                </li>
+            </ul>
+        </li>
+
+        <li class="{% if slug == 'admin_category' %}active{% endif %}">
+            <a href="#categorySubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Categorie</a>
+            <ul class="collapse list-unstyled" id="categorySubmenu">
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                    <li>
+                        <a href="{{ path('admin_category_create') }}">Ajouter une categorie</a>
+                    </li>
+                {% endif %}
+                <li>
+                    <a href="{{ path('admin_category_search') }}">Liste des categorie</a>
+                </li>
+            </ul>
+        </li>
+
+        {# <li class="{% if slug == 'admin_size' %}active{% endif %}">
+            <a href="#sizeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Tailles</a>
+            <ul class="collapse list-unstyled" id="sizeSubmenu">
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                    <li>
+                        <a href="{{ path('admin_size_create') }}">Ajouter une taille</a>
+                    </li>
+                {% endif %}
+                <li>
+                    <a href="{{ path('admin_size_search') }}">Liste des tailles</a>
+                </li>
+            </ul>
+        </li> #}
+
+        {# <li class="{% if slug == 'admin_weight' %}active{% endif %}">
+            <a href="#weightSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Poids</a>
+            <ul class="collapse list-unstyled" id="weightSubmenu">
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                    <li>
+                        <a href="{{ path('admin_weight_create') }}">Ajouter un poids</a>
+                    </li>
+                {% endif %}
+                <li>
+                    <a href="{{ path('admin_weight_search') }}">Liste des poids</a>
+                </li>
+            </ul>
+        </li> #}
+
+        {# <li class="{% if slug == 'admin_promotional' %}active{% endif %}">
+            <a href="#promotionalSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Code promo</a>
+            <ul class="collapse list-unstyled" id="promotionalSubmenu">
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                    <li>
+                        <a href="{{ path('admin_promotional_create') }}">Ajouter un code promo</a>
+                    </li>
+                {% endif %}
+                <li>
+                    <a href="{{ path('admin_promotional_search') }}">Liste des codes promos</a>
+                </li>
+            </ul>
+        </li> #}
+
+        {# <li class="{% if slug == 'admin_page' %}active{% endif %}">
+            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
+            <ul class="collapse list-unstyled" id="pageSubmenu">
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                    <li>
+                        <a href="{{ path('admin_page_create') }}">Ajouter une page</a>
+                    </li>
+                {% endif %}
+                <li>
+                    <a href="{{ path('admin_page_search') }}">Liste des pages</a>
+                </li>
+            </ul>
+        </li> #}
+
+         {# <li class="{% if slug == 'admin_slider' %}active{% endif %}">
+            <a href="#sliderSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Bandeau accueil</a>
+            <ul class="collapse list-unstyled" id="sliderSubmenu">
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                    <li>
+                        <a href="{{ path('admin_slider_create') }}">Ajouter bandeau accueil</a>
+                    </li>
+                {% endif %}
+                <li>
+                    <a href="{{ path('admin_slider_search') }}">Liste des bandeaux</a>
+                </li>
+            </ul>
+        </li> #}
+
+        <li class="{% if slug == 'admin_resource' %}active{% endif %}">
+            <a href="#resourceSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Ressources images</a>
+            <ul class="collapse list-unstyled" id="resourceSubmenu">
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                    <li>
+                        <a href="{{ path('admin_resource_create') }}">Ajouter une Ressource image</a>
+                    </li>
+                {% endif %}
+                <li>
+                    <a href="{{ path('admin_resource_search') }}">Liste des Ressources images</a>
+                </li>
+            </ul>
+        </li>
+
+        {# <li class="{% if slug == 'config' %}active{% endif %}">
+            <a href="#configSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Configuration</a>
+            <ul class="collapse list-unstyled" id="configSubmenu">
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                    <li>
+                        <a href="{{ path('admin_configuration_create') }}">Ajouter une configuration</a>
+                    </li>
+                {% endif %}
+                <li>
+                    <a href="{{ path('admin_configuration_search') }}">Liste des configurations</a>
+                </li>
+            </ul>
+        </li> #}
+
+         {% if is_granted('ROLE_SUPER_ADMIN') %}
+            <li class="{% if slug == 'admin_security_search' %}active{% endif %}">
+                <a href="{{ path('admin_security_search') }}">Gestion des utilisateurs</a>
+            </li>
+        {% endif %}
+
+    </ul>
+</nav>

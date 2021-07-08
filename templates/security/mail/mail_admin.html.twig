@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Nouvelle inscription via votre site internet</title>
+</head>
+<body>
+
+    Bonjour, <br>
+
+    <p>Une inscription via votre site internet <a href="{{absolute_url(path('home'))}}">{{ conf_company_name }}</a> vient d'être envoyée.</p>
+    <h2 style='margin-bottom:5px;'>Fiche contact</h2>
+    <strong>Nom Prenom: </strong> {{user.firstname}} {{ user.lastname }}<br>
+    <strong>Email: </strong> {{user.email}}<br>
+    <strong>Téléphone: </strong> {{user.phone}}<br>
+    <br>
+    <i><small>Veuillez noter que ceci est un email automatique de <a href="{{absolute_url(path('home'))}}">{{absolute_url(path('home'))}}</a></small><i/>
+</body>
+</html>

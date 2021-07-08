@@ -1,0 +1,13 @@
+twig:
+    default_path: '%kernel.project_dir%/templates'
+    debug: '%kernel.debug%'
+    strict_variables: '%kernel.debug%'
+    form_themes: ['bootstrap_4_layout.html.twig', '@FOSCKEditor/Form/ckeditor_widget.html.twig']
+    globals:
+        company_name: '%conf_company_name%'
+        company_email: '%conf_company_email%'
+        company_address: '%conf_company_address%'
+        company_zipcode: '%conf_company_zipcode%'
+        company_city: '%conf_company_city%'
+        company_phone1: '%conf_company_phone1%'
+        company_call_phone1: '%conf_company_call_phone1%'

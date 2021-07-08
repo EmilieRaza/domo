@@ -1,0 +1,102 @@
+{% extends 'front/layout.html.twig' %}
+
+{% block title %}Mentions légales{% endblock %}
+
+{% block content %}
+    {% block banner %}
+        <section class="banner pages">
+            <div class="container">
+                <div class="middle">
+                    <h1>Mentions légales</h1>
+                </div>
+            </div>
+        </section>
+    {% endblock %}
+
+    <section class="section-padding">
+        <div class="container">
+        <h2>L’EDITEUR</h2>
+        <ul>
+        <li>Raison sociale : CONSULTANTS IMMOBILIER</li>
+        <li>Siège social : Conakry</li>
+        {# <li>RCS : PARIS B 397657941</li>
+        <li>SIRET : 397657941 00027</li>
+        <li>Forme sociale : SAS</li> #}
+        <li>Capital : 10 000 000 GNF</li>
+        <li>Directeur de publication : Souleymane CAMARA</li>
+        </ul>
+        <p></p>
+        <h2>HÉBERGEMENT</h2>
+        <p>Le site est réalisé par l’agence: <a href="https://www.bhinternet.fr/" target="_blank">BHinternet</a>.</p>
+        <p>Il est hébergé sur les serveurs de <a href="https://www.gandi.net/" target="_blank">GANDI SAS</a>, société par actions simplifiée au capital de 37.000€, ayant son siège social au 15 place de la Nation à Paris (75011) FRANCE, immatriculée sous le numéro 423 093 459 RCS PARIS.</p>
+        <p>N° TVA intracommunautaire FR81423093459</p>
+        <p>Téléphone : +33.(1)43.73.78.51</p>
+        <p></p>
+        <h2>SERVICE D’ANNONCES IMMOBILIERES</h2>
+        <p>L’Editeur déploie des efforts permanents en termes humain, technique et financier pour assurer un service d’annonces immobilières de qualité professionnelle en faveur des Utilisateurs du Site. En dépit de ses efforts, l’Editeur ne pourra en aucun cas être tenu responsable pour toute erreur involontaire de sa part ayant pour conséquence l’absence d’exactitude, de fiabilité, de pertinence, d’exhaustivité, d’actualité des informations insérées sur le service «Annonces immobilières» du Site. Il en est de même pour la disponibilité juridique des biens cités dans les annonces.</p>
+        <p></p>
+        <h2>LIENS HYPERTEXTES VERS DES SITES TIERS</h2>
+        <p>Le Site propose des liens hypertextes pointant vers des sites Internet édités par des tiers. La mise en place de ces liens ne signifie pas l’approbation par l’éditeur du contenu des dits sites. L’Editeur ne peut pas réaliser en permanence un contrôle du contenu des dits sites, et ne peut donc garantir :</p>
+        <ul>
+        <li>l’exactitude, la fiabilité, la pertinence, la mise à jour, ou l’exhaustivité de leur contenu ;</li>
+        <li>leur accès et bon fonctionnement technique.</li>
+        </ul>
+        <p>Par conséquent, la responsabilité de l’Editeur ne pourra être retenue en cas d’éventuel litige entre un site référencé sur le Site et un Utilisateur. Seule la responsabilité des éditeurs des sites référencés sur le Site pourra être engagée.</p>
+        <p></p>
+        <h2>LA PROTECTION DE LA VIE PRIVÉE ET DES DONNÉES PERSONNELLES</h2>
+        <p>Le Site collecte les informations personnelles fournies par les Utilisateurs à l’occasion de leur visite sur le Site. Cette collecte permet :</p>
+        <ul>
+        <li>L’établissement de statistiques générales sur le trafic sur le Site ;</li>
+        <li>L’envoi vers les adresses mails fournies par les Utilisateurs de réponses, d’informations diverses ou annonces provenant de l’Editeur. La collecte et le traitement des informations personnelles sur Internet doivent se faire dans le respect des droits fondamentaux des personnes.</li>
+        </ul>
+        <p>Tout utilisateur du Site dispose d’un droit d’accès, modification, de rectification ou de suppression aux données personnelles le concernant. Il peut exercer ces droits en contactant l’Editeur aux coordonnées indiquées en haut de page. Pour faciliter l’exercice de ces droits, les Utilisateurs du Site peuvent se désinscrire en cliquant sur les liens hypertextes de <a href="{{ path('contact')}}">Contact</a> sur le site.</p>
+        <p>Les ordinateurs se connectant aux serveurs du Site reçoivent sur leur disque dur un ou plusieurs fichiers au format texte très légers appelés communément » Cookies «. Les cookies enregistrent des informations relatives à la navigation sur le Site effectuée à partir de l’ordinateur sur lequel est stocké le «cookie» (les pages consultées, la date et l’heure de la consultation, etc.). Ils permettent d’identifier les visites successives faites à partir d’un même ordinateur.</p>
+        <p>Les personnes connectées au Site ont la liberté de s’opposer à l’enregistrement de «cookies». Pour se faire, elles peuvent employer les fonctionnalités correspondantes sur leur navigateur. Cependant, l’Editeur attire l’attention des Utilisateurs que, dans un tel cas, l’accès à certains services du Site peut se révéler altéré, voire impossible.</p>
+        <p></p>
+        <h2>PROTECTION DES DONNÉES PERSONNELLES</h2>
+        <ul>
+        <li>
+        <h3>NATURE DES DONNÉES À CARACTÈRE PERSONNEL DE L’UTILISATEUR COLLECTÉES PAR L’ÉDITEUR</h3>
+        </li>
+        </ul>
+        <p style="padding-left: 30px;">Parmi les données à caractère personnel de l’utilisateur que l’éditeur collecte auprès de lui peuvent figurer :</p>
+        <ul>
+        <ul>
+        <ul>
+        <li>les noms et prénoms</li>
+        <li>son adresse de courrier électronique</li>
+        <li>son numéro de téléphone</li>
+        </ul>
+        </ul>
+        </ul>
+        <p></p>
+        <ul>
+        <li>
+        <h3>RESPONSABLE DU TRAITEMENT</h3>
+        </li>
+        </ul>
+        <p style="padding-left: 30px;">Le responsable du traitement des données à caractère personnel de l’utilisateur est l’éditeur dont les coordonnées sont visées en tête des présentes mentions légales.</p>
+        <p></p>
+        <ul>
+        <li>
+        <h3>FINALITÉ DU TRAITEMENT</h3>
+        </li>
+        </ul>
+        <p style="padding-left: 30px;">Les données à caractère personnel de l’Utilisateur collectés auprès de lui et traitées par l’Editeur ont pour finalité de permettre à l’Editeur de :</p>
+        <ul>
+        <ul>
+        <ul>
+        <li>établir des statistiques générales sur le trafic de son Site Internet et des différentes rubriques qu’il contient</li>
+        <li>envoyer par courrier électronique ou téléphone à l’Utilisateur les réponses, informations diverses ou annonces publiées sur le Site Internet par la Société ou par ses Partenaires immobilier</li>
+        </ul>
+        </ul>
+        </ul>
+        <p></p>
+        <h2>LES DROITS DE PROPRIÉTÉ INTELLECTUELLE</h2>
+        <p>L’Editeur est titulaire de droits concernant certaines données protégées par le Code de la propriété intellectuelle. Il en est notamment ainsi pour sa ou ses marques, sa charte graphique, sa base de données. Par conséquent, leur exploitation offline ou online, à titre gratuit ou onéreux, de tout ou partie de ces données sans le consentement express de l’Editeur est interdite.</p>
+        <p></p>
+        <h2>LA DISPONIBILITÉ DES SERVICES</h2>
+        <p>L’Editeur dispose d’une obligation de moyens en termes d’accessibilité de service et met en place les structures nécessaires pour rendre le Site accessible 7 jours sur 7 et 24 heures sur 24. Néanmoins, L’Editeur peut suspendre l’accès sans préavis, notamment pour des raisons de maintenance et de mises à niveau. L’Editeur n’est en aucun cas responsable des éventuels préjudices qui peuvent en découler pour l’Utilisateur ou tout tiers. L’Editeur peut à tout moment supprimer tout ou partie de ses Services ou en modifier leur teneur notamment pour des raisons techniques, et cela sans préavis. L’Editeur se réserve la faculté de refuser, unilatéralement et sans notification préalable, à tout Utilisateur l’accès à tout ou partie du Site. Une telle décision pourrait notamment être prise en cas de non-respect des termes du présent texte par un Utilisateur.</p>
+        </div>
+    </section>
+{% endblock %}
