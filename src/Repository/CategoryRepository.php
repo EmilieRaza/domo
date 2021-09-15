@@ -2,9 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\Gamme;
 use App\Entity\Category;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Category|null find($id, $lockMode = null, $lockVersion = null)
@@ -47,4 +48,21 @@ class CategoryRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    
+    public function findAllcategoriesByGamme(Gamme $gamme)
+    {
+            $query = $this 
+            ->createQueryBuilder('c')
+            ->select('c')
+            ->join('c.products', 'p')
+            ->join('p.gammeProduct', 'g')
+            ->andWhere('g.id = :gamme')
+            ->setParameter('gamme', $gamme);
+    
+            $query = $query->getQuery()->getResult();
+            
+            return $query;
+        
+    }
 }

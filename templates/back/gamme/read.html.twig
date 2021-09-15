@@ -1,0 +1,50 @@
+{% extends 'back/layout.html.twig' %}
+
+{% block title %} Voir gamme{% endblock %}
+
+{% block content %}
+
+<section class="section-padding">
+    <div class="container">
+        <h1>Voir gamme</h1>
+        <div class="shape"></div>
+
+        <div class="text-right mt-4">
+            <a href="{{ path('admin_gamme_search') }}" class="btn btn-primary" role="button">
+                <i class="fa fa-reply"></i> Retour
+            </a>
+        </div>
+        <div class="card mt-4 mb-4">
+            <div class="card-header text-center">
+                <h4>Détail gamme</h4>
+            </div>
+            <div class="card-content">
+                                    <div class="read-content">
+                        <p>
+                            <strong>{% trans %}Id{% endtrans %}</strong> : 
+                            {{ category.id }}
+                        </p>
+                    </div>
+                                    <div class="read-content">
+                        <p>
+                            <strong>{% trans %}Name{% endtrans %}</strong> : 
+                            {{ category.name }}
+                        </p>
+                    </div>
+                                    <div class="read-content">
+                        <p>
+                            <strong>{% trans %}UpdatedAt{% endtrans %}</strong> : 
+                            {{ category.updatedAt ? category.updatedAt|date('Y-m-d H:i:s') : '' }}
+                        </p>
+                    </div>
+                                    <div class="read-content">
+                        <p>
+                            <strong>{% trans %}CreatedAt{% endtrans %}</strong> : 
+                            {{ category.createdAt ? category.createdAt|date('Y-m-d H:i:s') : '' }}
+                        </p>
+                    </div>
+                            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

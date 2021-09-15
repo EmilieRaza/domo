@@ -1,0 +1,147 @@
+{% extends 'back/layout.html.twig' %}
+{% block title %}
+	Gestion
+	{{'Product'|transchoice(2)}}
+{% endblock %}
+
+{% block content %}
+
+	{# ///////////////// MODAL DELETE ////////////////////#}
+	<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Suppression d'un enregistrement</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body"></div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+					<form method="post" action="">
+						<input id="token" type="hidden" name="_token" value="">
+						<input type="hidden" name="_method" value="DELETE">
+						<button type="submit" class="btn btn-danger">Supprimer</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	{# ///////////////// END MODAL DELETE ////////////////////#}
+
+	<section class="section-padding">
+		<div class="container">
+			<h1>Gestion des caractéristiques</h1>
+			<div class="shape"></div>
+			
+			<div class="text-right mt-4">
+				<a href="{{ path('admin_caracteristique_create') }}" class="btn btn-success">
+					<i class="fa fa-plus" aria-hidden="true"></i>
+					Ajouter un titre
+				</a>
+			</div>
+			
+		
+			<div class="card mt-4 mb-4">
+				<div class="card-header text-center btn-red text-light">
+					<h4>Liste des caractéristiques du produit: </h4>
+				</div>
+				<div class="card-content">
+					<div class="table-responsive mt-4 mb-4">
+						<table class="table table-striped table-bordered" id="dataTable" width="100%" cellspacing="0" data-page-length='50'>
+							<thead>
+								<tr>
+									<th>Id</th>
+									<th>Titre de la caractéristique</th>
+									<th>Actions</th>
+					
+								</tr>
+							</thead>
+							<tbody>
+								{% for titleCaract in titleCaracts %}
+								
+										<td>{{titleCaract.id}}</td>
+										<td>{{ titleCaract.title }}</td>
+										<td style="width:15%!important">
+											{# <a href="{{ path('admin_product_read', {'id': titleCaract.id}) }}" title="Voir" class="btn btn-primary" aria-label="Voir">
+												<i class="fa fa-file"></i>
+											</a>
+											<a href="{{ path('admin_product_update', {'id': product.id}) }}" title="Modifier" class="btn btn-warning" aria-label="Modifier">
+												<i class="fas fa-edit"></i>
+											</a>
+											<a href="#" title="Supprimer" class="btn btn-danger btn-delete" data-toggle="modal" data-target="#delete" aria-label="Supprimer" id="{{product.id}}" data-title="{{ product.title }}" data-path="{{ path('admin_product_delete', {'id': product.id})}}">
+												<i class="fa fa-times"></i>
+											</a> #}
+										</td>
+									</tr>
+								{% else %}
+									<tr>
+										<td colspan="12">Aucun titre Enregistré </td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</section>
+	{% endblock %}
+
+	{% block javascripts %}
+		{{ parent() }}
+		<script src="{{ asset('datatables/jquery.dataTables.js')}}"></script>
+		<script src="{{ asset('datatables/dataTables.bootstrap4.js')}}"></script>
+		<script>
+			$(document).ready(function () {
+$(document).on("click", ".btn-delete", function () {
+var id = $(this).attr('id');
+var title = $(this).attr('data-title');
+var path = $(this).attr('data-path');
+$('.modal-footer form').attr('action', path);
+$('#token').val("{{ csrf_token('delete' ~"+id+") }}");
+$('.modal-body').html("<p>Confirmez-vous la suppression de: <strong>" + title + "</strong></p>");
+});
+});
+		</script>
+
+		<script>
+			$(document).ready(function () {
+$("#dataTable").DataTable()
+});
+		</script>
+
+		<script type="text/javascript">
+			$('#dataTable').DataTable({
+language: {
+processing: "Traitement en cours...",
+search: "Rechercher&nbsp;:",
+lengthMenu: "Afficher _MENU_ &eacute;l&eacute;ments",
+info: "Affichage de l'&eacute;lement _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+infoEmpty: "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 &eacute;l&eacute;ments",
+infoFiltered: "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+infoPostFix: "",
+loadingRecords: "Chargement en cours...",
+zeroRecords: "Aucun &eacute;l&eacute;ment &agrave; afficher",
+emptyTable: "Aucune donnée disponible dans le tableau",
+paginate: {
+first: "Premier",
+previous: "Pr&eacute;c&eacute;dent",
+next: "Suivant",
+last: "Dernier"
+},
+aria: {
+sortAscending: ": activer pour trier la colonne par ordre croissant",
+sortDescending: ": activer pour trier la colonne par ordre décroissant"
+}
+},
+
+aaSorting: []
+});
+		</script>
+
+		<style>
+			.btn-red{
+				background-color:#c11823;
+			}
+	{% endblock %}

@@ -78,6 +78,11 @@ class Command
      */
     private $billing;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $stape;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -258,6 +263,18 @@ class Command
     public function setBilling(?string $billing): self
     {
         $this->billing = $billing;
+
+        return $this;
+    }
+
+    public function getStape(): ?string
+    {
+        return $this->stape;
+    }
+
+    public function setStape(string $stape): self
+    {
+        $this->stape = $stape;
 
         return $this;
     }

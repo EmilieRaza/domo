@@ -1,0 +1,61 @@
+{% extends 'back/layout.html.twig' %}
+
+{% block title %} Voir message {% endblock %}
+
+{% block content %}
+
+<section class="section-padding">
+    <div class="container">
+        <h1>Message <small>( Formulaire de contact ) </small></h1>
+        <div class="shape"></div>
+
+        <div class="text-right mt-4">
+            <a href="{{ path('admin_contact_search') }}" class="btn btn-primary" role="button">
+                <i class="fa fa-reply"></i> Retour
+            </a>
+        </div>
+        <div class="card mt-4 mb-4">
+            <div class="card-header text-center btn-red text-light">
+                <h4>Détail Message</h4>
+            </div>
+            <div class="card-content">
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><i class="fas fa-user"></i> <small> - {{ contact.lastname }} {{ contact.firstname }}</small></h5>
+                    <h5><i class="fas fa-briefcase"></i><small> - {{ contact.fonction }}</small></h5>
+                </div>
+                 <div class="col-md-6">
+                    <h5><i class="fas fa-envelope"></i> <small> - {{ contact.email }} </small></h5>
+                    <h5><i class="fas fa-mobile-alt"></i> <small> - {{ contact.phone }} </small></h5> 
+                </div>
+            </div>
+                                    {# <div class="read-content">
+                        <p>
+                            <strong>{% trans %}Id{% endtrans %}</strong> : 
+                            {{ contact.id }}
+                        </p>
+                    </div>
+                                    <div class="read-content">
+                        <p>
+                            <strong>{% trans %}Name{% endtrans %}</strong> : 
+                            {{ contact.name }}
+                        </p>
+                    </div>
+                                    <div class="read-content">
+                        <p>
+                            <strong>{% trans %}UpdatedAt{% endtrans %}</strong> : 
+                            {{ contact.updatedAt ? contact.updatedAt|date('Y-m-d H:i:s') : '' }}
+                        </p>
+                    </div>
+                                    <div class="read-content">
+                        <p>
+                            <strong>{% trans %}CreatedAt{% endtrans %}</strong> : 
+                            {{ contact.createdAt ? contact.createdAt|date('Y-m-d H:i:s') : '' }}
+                        </p>
+                    </div> #}
+                </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

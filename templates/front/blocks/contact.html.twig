@@ -1,27 +1,48 @@
-<div class="card-form">
-    {{ form_start(form)}}
-            {{ form_row(form.type)}}
-            <div class="row">
-                <div class="col-md-6">
-                    {{ form_row(form.firstname)}}
-                </div>
-                <div class="col-md-6 ">
-                    {{ form_row(form.lastname)}}
-                </div>
-            </div>
 
-            <div class="row">
-                <div class="col-md-6">
-                    {{ form_row(form.email)}}
-                </div>
-                <div class="col-md-6 ">
-                    {{ form_row(form.phone)}}
-                </div>
-            </div>
-             {{ form_row(form.message)}}
-             <br>
-             <div class="form-group text-center">
-                <button class="btn btn-primary"><i class="fas fa-paper-plane"></i> Envoyer</button>
-            </div>
-    {{form_end(form)}}
+<div class="row" style="background-color:#c11823">
+    <div class="col-md-4" style="background-color:white;height:800px!important">
+        <div class="m-3" >
+            <center><img  class="mt-5 mb-5 img-fluid "src="{{ asset('img/gifPanier3.gif') }}" style="height:350px;"><br><br>
+          
+            <h3 class="text-center h-100 text-uppercase">Une question ? <br> <br>Une proposition commerciale ? <br><br>Contactez-nous! </h3></center>
+        </div>
+    </div>
+    {# <div class="col-md-1"></div> #}
+    <div class="col-md-8">
+         <div class="m-4 p-5" style="background-color:white">
+                     <h3 class="text-center">Formualire de contact</h3><br>
+            {{ form_start(form)}}
+                   
+                    <div class="row">
+                        <div class="col-md-6">
+                             {{ form_row(form.type)}}
+                        </div>
+                        <div class="col-md-6 ">
+                             {{ form_row(form.fonction)}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form_row(form.firstname)}}
+                        </div>
+                        <div class="col-md-6 ">
+                            {{ form_row(form.lastname)}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form_row(form.email)}}
+                        </div>
+                        <div class="col-md-6 ">
+                            {{ form_row(form.phone)}}
+                        </div>
+                    </div>
+                    {{ form_row(form.message)}}
+                    <br>
+                    <div class="form-group text-center">
+                        <button class="btn btn-red text-uppercase"><i class="fas fa-paper-plane"></i> Envoyer</button>
+                    </div>
+            {{form_end(form)}}
+        </div>
+    </div>
 </div>

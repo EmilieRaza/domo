@@ -6,6 +6,7 @@ use App\Entity\Size;
 use App\Entity\Weight;
 use App\Entity\Product;
 use App\Entity\Category;
+use App\Entity\Gamme;
 use App\Form\CategoryType;
 use App\Form\ProductImageType;
 use Symfony\Component\Form\AbstractType;
@@ -37,14 +38,25 @@ class ProductType extends AbstractType
             ])
             ->add('priceCustomer', TextType::class, [
                 'label'        => 'Prix client',
+                'required' => false 
             ])
-            ->add('solde')
-            ->add('isHome')
+            ->add('solde', TextType::class, [
+                'required' => false 
+            ])
+            ->add('isHome', CheckboxType::class, [
+                'label' => 'En stock',
+                'required' => False
+            ])
             ->add('isActive', CheckboxType::class, [
                 'label'        => 'En ligne',
+                'required' => False
+            ])
+            ->add('isNewProduct', CheckboxType::class, [
+                'label'        => 'Nouveau produit',
             ])
             ->add('withDelivery', CheckboxType::class, [
                 'label'        => 'Livraison',
+                'required' => false 
             ])
             ->add('images', CollectionType::class, [
                 'entry_type'   => ProductImageType::class,
@@ -65,16 +77,27 @@ class ProductType extends AbstractType
                 'attr' => ['class' => 'ckeditor'],
                 'label'        => 'Description courte',
             ])
-            ->add('gamme', ChoiceType::class, [
+            ->add('humitestEnAction', TextareaType::class, [
+                'attr' => ['class' => 'ckeditor'],
+                'label'        => 'Humitest en action',
+            ])
+            ->add('gammeProduct', EntityType::class, [
                 'label' => 'Gamme',
-                'choices' => [
-                    'Bâtiment-Immobilier' => 'Bâtiment-Immobilier',
-                    'Industrie' => 'Industrie',
-                    'Biomasse' => 'Biomasse',
-                    'Agro-Alimentaire' => 'Agro-Alimentaire'
-                ],
+                'required' => True,
+                'class' => Gamme::class,
+                'expanded' => false,
+                'multiple' => false,
                 'placeholder' => 'Choisir une gamme'
             ])
+            ->add('linkVideo', TextType::class, [
+                'label'        => 'URL de la video (Youtube)',
+                'required' => False,
+            ]);
+
+            if($options['isFlagship']){
+                $builder
+                ->add('isFlagship');
+            }
         ;
     }
 
@@ -82,7 +105,8 @@ class ProductType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Product::class,
-            'translation_domain' => 'forms'
+            'translation_domain' => 'forms',
+            'isFlagship' => False,
         ]);
 
         $resolver->setRequired([

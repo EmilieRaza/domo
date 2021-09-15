@@ -1,175 +1,54 @@
 
-{% for row in products|batch(3) %}
-    <div class="row align-items-stretch">
-        {% for product in row %}
-            {# <div class="col-lg-4 mb-5 mb-lg-0">
-            
-                <div class="card-content">
-                
-                    <div class="card-image">
-                        <a href="{{ path('product', {'id': product.id, 'title':product.title|my_url_encode}) }}">
-                            <div class="card-image">
-                                {% if product.images|length > 0 %}
-                                    <img src="{{ vich_uploader_asset(product.images.0, 'imageFile') | imagine_filter('thumb') }}" alt="{{product.title}}" class="img-fluid">
-                                {% else %}
-                                    <img src="{{ asset('build/images/default-image.jpg') | imagine_filter('thumb') }}" alt="{{product.title}}" class="img-fluid">
-                                {% endif %}
-                                <div class="bgblack"></div>
-                                {% if product.solde > 0 %}
-                                    <div class="card-solde">
-                                        <h3>-{{product.solde}} %</h3> 
-                                    </div>
-                                {% endif %}
-                            </div>
-                        </a>
-                    </div>
-                    <div class="card-text text-center">
-                        {% set title = product.title|length > 50 ? product.title|slice(0, 50) ~ '...' : product.title %}
-                        <h3 class="text-center">{{title|striptags|raw}}</h3>
-                        {% set content = product.shortDesc|striptags|length > 80 ? product.shortDesc|striptags|slice(0, 80) ~ '...' : product.shortDesc%}
-                        <hr>
-                        <div class="card-price">
-                            {% if product.solde > 0 %}
-                                <h4>
-                                    <small>{% if product.weight %}{{ product.weight }}{% else %} {{ product.size }} {% endif %}</small> | {{product.priceSolde}} € <small><del>{{ product.price }} €</del></small>
-                                </h4>
-                            {% else %}
-                                <h4><small>{% if product.weight %}{{ product.weight }}{% else %} {{ product.size }} {% endif %}</small>  | {{ product.price }} €</h4>
-                            {% endif %}
-                        </div>
-                        <br>
-                         <a href="{{ path('product', {'id': product.id, 'title':product.title|my_url_encode}) }}" class="btn btn-primary btn-block colored"><i class="fas fa-shopping-cart"></i> Acheter</a>
-                    </div>
-                    <br>
-                </div>
-            </div> #}
-            <div class="col-md-4 mb-5">
-        <a href="{{ path('product', {'id': product.id, 'title':product.title|my_url_encode}) }}">
-            <div class="card_produit shadow" >
-                <div class="card-content">
-                    <div class="top-bar">
-                    <span class="text-dark">
-                        <h3 class="text-dark">{{ product.price }} € </h3>
-                    </span>
-                    {# <span class="float-right lnr lnr-heart"></span> #}
-                    <a href="{{ path('product', {'id': product.id, 'title':product.title|my_url_encode}) }}" class="text-dark float-right">
-                        <i class="fas fa-shopping-cart float-right"></i>
-                    </a> <br>
-                    </div>
-                    <div class="img">
-                    {% if product.images|length > 0 %}
-                        <img src="{{ vich_uploader_asset(product.images.0, 'imageFile') | imagine_filter('thumb') }}" alt="{{product.title}}" class="img-fluid">
-                    {% else %}
-                        <img src="{{ asset('build/images/default-image.jpg') | imagine_filter('thumb') }}" alt="{{product.title}}" class="img-fluid">
-                    {% endif %}
-                    </div>
-                </div>
-                <div class="card-description">
-                    
-                <div class="title">
-                    {% set title = product.title|length > 50 ? product.title|slice(0, 50) ~ '...' : product.title %}
-                    {{title|striptags|raw}}
-                    </div><br>
-                </div> 
-                    <p class="ml-5 mr-5 text-justify">
-                    {% set content = product.shortDesc|striptags|length > 80 ? product.shortDesc|striptags|slice(0, 80) ~ '...' : product.shortDesc %}   
-                    </p>
-                
-                <div class="card-footer">
-                    <div class="span">
-                    RED
-                    </div>
-                    <div class="span">
-                    BEATS
-                    </div>
-                    <div class="span">
-                    HEADPHONE  
-                    </div>
-                </div>
+{% for row in products|batch(4) %}
+    <div class="row mb-5">
+    {% for product in row %}
+        <div class="col-md-3">
+            <figure class="snip1423" >
+            <div class="card-header">
+            {% if product.isNewProduct == 1 %}
+			    {# <img src="{{ asset('build/images/nouveauProduit2.png')}}" style="left:-45px;top:-40px;height:65px!important;float:left!important"> #}
+                <img src="{{ asset('build/images/nouveauProduit3.png')}}" style="right:-6px;top:-6px;height:105px!important;float:right!important;position:absolute; z-inde:3;">
+            {% endif %} 
+
+            {% set laGamme = product.gamme %}
+            {% if laGamme == "Bâtiment-Immobilier" %}
+               Bâtiment  <br> {{product.category}} 
+            {% else %}
+            {{product.gamme}} <br> {{product.category}} 
+            {% endif %}
             </div>
-        </a>
-    </div>
-        {% endfor %}
-    </div>
+            {% if product.images|length > 0 %}
+                <img src="{{ vich_uploader_asset(product.images.0, 'imageFile') | imagine_filter('thumb') }}" alt="{{product.title}}" class="img-fluid mt-2" >
+            {% else %}
+                <img src="{{ asset('build/images/default-image.jpg') | imagine_filter('thumb') }}" alt="{{product.title}}">
+            {% endif %}
+                <figcaption>
+                    {% set title = product.title|length > 20 ? product.title|slice(0, 20) ~ '...' : product.title %}
+                           
+                    <h3><b> {{title|striptags|raw}}</b></h3>
+                    {% set content = product.shortDesc|striptags|length > 100 ? product.shortDesc|striptags|slice(0, 100) ~ '...' : product.shortDesc %}
+                    <p>{{content|raw}}</p>
+                    <div class="price">
+                    </div>
+                </figcaption>
+            <a href="{{ path('product', {'id': product.id, 'title':product.title|my_url_encode}) }}"></a>
+                  
+            </figure>
+              <a href="{{ path('product', {'id': product.id, 'title':product.title|my_url_encode}) }}"> 
+              <center><h3 style="margin-top:-40px!important; position:relative!important;z-index:1!important;">
+             <span class="shadow border border-white text-center badge btn-red text-ligth pl-4 pr-4 pt-2 pb-2 border "  
+             style="border-radius:50px; border-color: white!important;border-style:solid!important;border-width: 5px!important;">
+               <small class="text-white"> {{product.price }}€ HT</small>
+              </span></h3></center></a>
+
+        </div>
+    {% endfor %} 
+    </div> 
 {% endfor %}
 
 
-<style>
-    .card-content {
-        background-color:white!important;
-        margin-bottom: 0px!important;
-    }
-    .title{
-        margin: 0 auto!important;
-    }
-    .card_produit .card-content {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-    }
-    .card_produit .card-content .top-bar {
-        width: calc(100% - 40px);
-        position: absolute;
-        top: 0;
-        left: 0;
-        padding: 20px;
-    }
-    .card_produit .card-content .top-bar .float-right {
-        float: right;
-    }
-    .card_produit .card-content .img {
-        width: 100%;
-        justify-content: bottom;
-        align-content: bottom;
-        text-align: center;
-    }
-    .card_produit .card-content .img img {
-        max-width: 100%;
-        max-height: 100%;
-        margin-top: 50px!important;
-    }
-    .card_produit .card-description {
-        padding: 10px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-weight: 400;
-        font-size: 14px;
-        letter-spacing: 0.1em;
-        /* width: calc(100%-20px); */
-    }
-    
-    .card_produit .card-description .cart {
-        float: right;
-        cursor: pointer;
-    }
-    .card_produit .card-footer {
-        text-transform: uppercase;
-        padding: 0.3em;
-        border-top: 0.5px solid #ececec;
-        letter-spacing: 0.1em;
-        font-size: 11px;
-        color: white;
-        justify-items: left;
-        align-items: center;
-        display: flex;
-    }
-    .card_produit .card-footer .span {
-        margin: 5px;
-        width: auto;
-        background: #dedede;
-        padding: 4px 7px;
-        border-radius: 2px;
-        font-weight: 100;
-        cursor: pointer;
-    }
-    .card_produit .card-footer .span:hover {
-        /* background: #aaa; */
-    }
-    .card_produit:hover {
-        transition: 0.2s ease-in;
-        transform: translateY(-10px);
-        /* box-shadow: 0px 45px 60px 0px rgba(0, 0, 0, 0.087); */
-    } 
-    
+
+
+
+
+

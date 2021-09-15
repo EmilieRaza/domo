@@ -4,12 +4,15 @@ namespace App\Controller\back;
 
 use App\Entity\Product;
 use App\Form\ProductType;
-use App\Repository\ProductRepository;
+use App\Entity\Caracteristique;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\TitleCaracteristique;
+use App\Repository\ProductRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\TitleCaracteristiqueRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/admin/product")
@@ -21,8 +24,14 @@ class ProductController extends AbstractController
      */
     public function search(ProductRepository $productRepository): Response
     {
+        $isFlagship = True; 
+        $Flagship = $productRepository->isFlagship();
+        if($Flagship==Null){
+            $isFlagship = False; 
+        }
         return $this->render('back/product/search.html.twig', [
             'products' => $productRepository->findBy([], ['updatedAt' => 'ASC']),
+            'isFlagship' => $Flagship,
             'slug' => 'admin_product',
         ]);
     }
@@ -30,10 +39,18 @@ class ProductController extends AbstractController
     /**
      * @Route("/create", name="admin_product_create", methods="GET|POST")
      */
-    public function create(Request $request): Response
-    {
+    public function create(Request $request,ProductRepository $productRepository): Response
+    {        
+        $isFlagship = False; 
+        $Flagship = $productRepository->isFlagship();
+
+        if($Flagship==Null){
+            $isFlagship = True; 
+        }
+        
         $product = new Product();
         $form = $this->createForm(ProductType::class, $product, [
+            'isFlagship' => $isFlagship, 
             'update' => $product->getId()==null?false:true,
         ]);
 
@@ -54,6 +71,7 @@ class ProductController extends AbstractController
         ]);
     }
 
+
     /**
      * @Route("/{id}", name="admin_product_read", methods="GET")
      */
@@ -68,17 +86,17 @@ class ProductController extends AbstractController
     /**
      * @Route("/update/{id}", name="admin_product_update", methods="GET|POST")
      */
-    public function update(Request $request, Product $product): Response
+    public function update(Request $request, Product $product,ProductRepository $productRepository): Response
     {
+
         $form = $this->createForm(ProductType::class, $product, [
             'update' => $product->getId()==null?false:true,
         ]);
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $product->setUpdatedAt(new \DateTime());
             $this->getDoctrine()->getManager()->flush();
+
             return $this->redirectToRoute('admin_product_search');
         }
 
@@ -87,6 +105,7 @@ class ProductController extends AbstractController
             'form' => $form->createView(),
             'slug' => 'admin_product',
         ]);
+    
     }
 
     /**

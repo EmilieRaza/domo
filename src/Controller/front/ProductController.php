@@ -18,6 +18,7 @@ use App\Services\GeneratePdfService;
 use Symfony\Component\Asset\Package;
 use App\Repository\ProductRepository;
 use App\Repository\CategoryRepository;
+use App\Repository\GammeRepository;
 use App\Repository\PromotionalRepository;
 use App\Repository\ConfigurationRepository;
 use Knp\Component\Pager\PaginatorInterface;
@@ -31,24 +32,24 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Asset\VersionStrategy\JsonManifestVersionStrategy;
 
 /**
- * @Route("/produit")
+ * @Route("/")
  */
 class ProductController extends AbstractController
 {
     /**
-     * @Route("/", name="product_all", methods="GET")
+     * @Route("/nos-produits", name="product_all", methods="GET")
      */
-    public function productAll(ProductRepository $productRepository, PaginatorInterface $paginator, Request $request): Response
+    public function productAll(ProductRepository $productRepository, PaginatorInterface $paginator, Request $request, CategoryRepository $CategoryRepository): Response
     {
-
         $products = $paginator->paginate(
-            $productRepository->findBy(['isActive' => true], ['updatedAt' => 'ASC']),
+            $productRepository->findBy(['isActive' => true], ['gammeProduct' => 'ASC']),
             $request->query->getInt('page', 1),
             12
         );
 
         return $this->render('front/product/product_all.html.twig', [
             'products' => $products,
+            'categories' => $CategoryRepository->findAll(),
             'slug' => 'product',
         ]);
     }
@@ -60,16 +61,45 @@ class ProductController extends AbstractController
     public function productDetail(ProductRepository $productRepository, PaginatorInterface $paginator, Request $request, int $id, CategoryRepository $categoryRepository): Response
     {
         $category =  $categoryRepository->findOneById($id);
+        $gammeShown = [];
+        // $products = $paginator->paginate(
+        //     $productRepository->findBy(['category' => $id], ['updatedAt' => 'ASC']),
+        //     $request->query->getInt('page', 1),
+        //     6
+        // );
+        // for ($i = 0; $i < $products; $i++) {
+        //     $gammeShown[$i] = false;
+        // }
+
+        return $this->render('front/product/product_category.html.twig', [
+            'gammeShown' => $gammeShown,
+            'category' => $category,
+            'categories' => $categoryRepository->findAll(),
+            // 'product' => $productRepository->findAll(),
+            // 'products' => $productRepository->findAll(),
+            'slug' => 'product',
+        ]);
+    }
+    /**
+     * @Route("/gamme/{name}/{id}", name="product_gamme", methods="GET")
+     */
+    public function productByGamme(PaginatorInterface $paginator, Request $request, int $id,ProductRepository $productRepository, GammeRepository $gammeRepository,CategoryRepository $categoryRepository): Response
+    {
+        $gamme =  $gammeRepository->findOneById($id);
+        $gammeShown = [];
         $products = $paginator->paginate(
-            $productRepository->findBy(['category' => $id], ['updatedAt' => 'ASC']),
+            $productRepository->findBy(['gammeProduct' => $id], ['updatedAt' => 'ASC']),
             $request->query->getInt('page', 1),
             6
         );
-
-        return $this->render('front/product/product_category.html.twig', [
-            'category' => $category,
-            'products' => $products,
-            'slug' => 'product',
+        $categoriesByGamme =  $categoryRepository->findAllcategoriesByGamme($gamme);
+        //dd($categoriesByGamme[0]->getName());
+        return $this->render('front/product/product_gamme.html.twig', [
+            'gammeShown' => $gammeShown,
+            'gamme' => $gamme,
+            'categories' => $categoriesByGamme,
+            'product' => $productRepository->findAll(),
+            'products' => $products
         ]);
     }
 
@@ -77,14 +107,15 @@ class ProductController extends AbstractController
     /**
      * @Route("/{id}/{title}", name="product", methods="GET|POST")
      */
-    public function product(ProductRepository $productRepository, Product $product, int $id, Request $request, Session $session, ConfigurationRepository $configurationRepository): Response
+    public function product(GammeRepository $gammeRepository, ProductRepository $productRepository, Product $product, int $id, Request $request, Session $session, ConfigurationRepository $configurationRepository): Response
     {
+        $gamme =  $gammeRepository->findOneById($id);
         $productCard = new ProductCard;
         $myService = new MyService($productRepository, $session, $configurationRepository);
         $form = $this->createForm(ProductCardType::class, $productCard);
         $form->handleRequest($request);
         $carts = [];
-
+        
         if ($form->isSubmitted() && $form->isValid()) {
             $carts = $session->get('carts');
             if (!empty($carts)) {
@@ -112,6 +143,7 @@ class ProductController extends AbstractController
                 3
             ),
             'slug' => 'product',
+            'gamme' => $gamme
         ]);
     }
 
@@ -149,23 +181,24 @@ class ProductController extends AbstractController
         ]);
     }
 
+  
     /**
      * @Route("/delete/{id}", name="product_delete", methods="DELETE")
      */
     public function delete(Request $request, Product $product, int $id, Session $session): Response
     {
-        $msg = 'Produit enlevé du panier avec succès';
-        $carts = $session->get('carts');
-        foreach ($carts as $key => $cart) {
-            if ($cart['id'] == $id) {
-                unset($carts[$key]);
-                break;
+            $msg = 'Produit enlevé du panier avec succès';
+            $carts = $session->get('carts');
+            foreach($carts as $key => $cart){
+                if($cart['id'] == $id){
+                   unset($carts[$key]);
+                   break;
+                }
             }
-        }
 
-        $session->set('carts', $carts);
-        $this->addFlash('success', $msg);
-        return $this->redirectToRoute('cart');
+            $session->set('carts', $carts);
+            $this->addFlash('success', $msg);
+            return $this->redirectToRoute('cart');
     }
 
 
@@ -177,9 +210,7 @@ class ProductController extends AbstractController
         $information = new Information;
         $data = $session->get('information');
 
-        // echo"<pre>";
-        //     var_dump($data);
-        // echo"</pre>";
+            // dd($data['solde']);
         $form = $this->createForm(InformationType::class, $information);
         if (!empty($data)) {
             $form->get('firstname')->setData($data['firstname']);
@@ -189,6 +220,7 @@ class ProductController extends AbstractController
             $form->get('address')->setData($data['address']);
             $form->get('zipcode')->setData($data['zipcode']);
             $form->get('city')->setData($data['city']);
+            $form->get('code')->setData($data['solde']);
         }
         $form->handleRequest($request);
         $msg = 'Désolé. vous n\'avez pas accès à cette page';
@@ -213,8 +245,8 @@ class ProductController extends AbstractController
                 $data['address'] = $information->getAddress();
                 $data['zipcode'] = $information->getZipcode();
                 $data['city'] = $information->getCity();
-                
-                if(!empty($information->getCode())){
+
+                if (!empty($information->getCode())) {
                     $promotional = $promotionalRepository->findOneByCode($information->getCode());
                     $data['solde'] = $promotional->getSolde();
                 }
@@ -236,6 +268,14 @@ class ProductController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+    /**
+     * @Route("/delete-cache", name="delete-cache", methods="GET|POST")
+     */
+    public function deleteCache(Session $session)
+    {
+        $session->clear();
+        dd($session->get('carts'));
+        }
 
     /**
      * @Route("/paiement", name="product_payment", methods="GET|POST")
@@ -302,7 +342,7 @@ class ProductController extends AbstractController
         ]);
     }
 
-    /**
+     /**
      * @Route("/paiement-accepte", name="payment_success", methods="GET")
      */
     public function paymentSuccess(ProductRepository $productRepository, Session $session, Request $request, Mailer $mailer, ConfigurationRepository $configurationRepository): Response
@@ -315,6 +355,7 @@ class ProductController extends AbstractController
         $productKey = $myService->getToken(12);
         $data['productKey'] = $productKey;
         $session->set('information', $data);
+        // dd($data['solde']);
        if(!empty($data['solde'])){
             $total = $myService->getTotal($data['solde']);
             $oldtotal = $myService->getTotal();
@@ -405,19 +446,22 @@ class ProductController extends AbstractController
     //// ADMIN MAIL ///////
     //////////////////////
 
-    public function mailerAdmin($mailer, $data, $folder, $attachement){
+    public function mailerAdmin($mailer, $data, $folder, $attachement)
+    {
 
         // on utilise le service Mailer créé précédemment
         //$session = new Session;
         //$data = $session->get('paymentSession');
-    
+
         $bodyMailContact = $mailer->createBodyMail($folder, ['data' => $data]);
-        
+
         $mailer->sendMessage(
-            $data['conf_company_name'], 
-            $data['conf_server_email'], 
-            $data['conf_company_email'], 
-            'Une personne viens de faire un achat sur votre site '.$data['conf_company_name'].' - '.$data['productKey'], $bodyMailContact,$data['conf_company_email2'],
+            $data['conf_company_name'],
+            $data['conf_server_email'],
+            $data['conf_company_email'],
+            'Une personne viens de faire un achat sur votre site ' . $data['conf_company_name'] . ' - ' . $data['productKey'],
+            $bodyMailContact,
+            $data['conf_company_email2'],
             $attachement
         );
     }
@@ -426,17 +470,18 @@ class ProductController extends AbstractController
     //// CONFIRMATION MAIL //
     ////////////////////////
 
-    public function mailerConfirmation($mailer, $data, $folder, $attachement){
+    public function mailerConfirmation($mailer, $data, $folder, $attachement)
+    {
 
         // on utilise le service Mailer créé précédemment
 
-        $bodyMailConfirmation = $mailer->createBodyMail($folder, ['data'=>$data]);
+        $bodyMailConfirmation = $mailer->createBodyMail($folder, ['data' => $data]);
 
         $mailer->sendMessage(
-            $data['conf_company_name'], 
-            $data['conf_server_email'], 
-            $data['email'], 
-            'Confirmation - '.$data['conf_company_name'].' - '.$data['productKey'], 
+            $data['conf_company_name'],
+            $data['conf_server_email'],
+            $data['email'],
+            'Confirmation - ' . $data['conf_company_name'] . ' - ' . $data['productKey'],
             $bodyMailConfirmation,
             null,
             $attachement

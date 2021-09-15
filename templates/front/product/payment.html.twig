@@ -25,13 +25,10 @@
                             <li><strong>Adresse:</strong> {{information.address}} {{information.zipcode}}
                                 {{information.city}}</li>
                         </ul>
-                        <!-- <h3>TVA:  {{tva|number_format(2, ',', '')}} %</h3> -->
-
+                        <h3>TVA:  {{tva|number_format(2, ',', '')}} %</h3>
                         {% if delivery > 0 %}
                             <h3>Frais de livraison:  {{delivery|number_format(2, ',', '')}} €</h3>
                         {% endif %}
-
-
                         <h4>
                             {% if oldtotal > 0 %}
                                 <i><small>Code Promo</small></i><br>

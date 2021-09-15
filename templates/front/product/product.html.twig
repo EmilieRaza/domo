@@ -1,97 +1,172 @@
 {% extends 'front/layout.html.twig' %}
 
-{% block title %}{{ product.title}} 
+{% block title %}
+	{{ product.title}}
 {% endblock %}
 
 {% block content %}
-    {% block banner %}
-    {% endblock %}
- <!-- fiche produit-->
-<div class="row bg-light mt-5 pt-5" >
-    <div class="col-md-10">
-            <div class="py-3 bg-light " >
-                <div class="container px-5 my-5 mb-0">               
-                    <!-- single product details -->
-                    <div class="small-container single-product">
-                        <div class="row">
-                        <div class="col-2">
-                            {% include "front/blocks/slider-product.html.twig" %}
-                        </div>
-                        <div class="col-2">
-                            <p>Batiment / Bois</p>
-                            <h1>{{ product.title}}</h1>
-                            <h4>329,00€ HT</h4>
-                            <input type="number" value="1" />
-                            <a href="" class="btn btn-red">Ajouter au panier</a>
+	{% block banner %}{% endblock %}
+	<!-- fiche produit-->
 
-                            <br />
-                            <p> {{  product.shortDesc|striptags('<br><p><strong><em>')|raw }}</p>
-                        </div>
-                        </div>
-                    </div>
-                </div>            
-            </div>
-    </div>
-    <div class="col-md-2">
-        <aside class="btn-red bg-gradient rounded-3 p-4 mt-5" style="position: fixed;top: 120px;">
-            <div class="d-flex align-items-center justify-content-between flex-column flex-xl-row text-center text-xl-start">
-                <div class="mb-4 mb-xl-12">
-                    <div class="fs-3 fw-bold text-white text-uppercase text-center">Produits similaires</div>
-                    <!-- <div class="text-white-50">Découvrez la liste de nos références</div> <br> -->
-                    <div class="card-body p-0">
-                    {% if products %}
-                        {% include "front/blocks/product_similaire.html.twig" %}
+	<div class="row bg-light mt-5 pt-1">
 
-                    {% else %}
-                            <ul class="list-group list-group-flush list-unstyled">
-                            <li class="fw-bold mb-1">
-                            <div class="bg-light p-3 shadow-sm" >
-                                    <div class="row">
-                                        <p class="text-center">Aucun produit similaire...</p>
-                                </div>
-                                
-                            </li>
-                        </ul>
-                    {% endif %}
-                        
-                    </div>
-                </div>
-            </div>
-        </aside>
-    </div>
-</div>
- <section class="py-5">
-            <div class="container px-5 my-5">
+		<div
+			class="col-md-10">
+			{# produit TOP  #}
+			<div class="bg-light ">
+				<div
+					class="container px-5 my-5 mb-0">
+					<!-- single product details -->
+					<div class="small-container single-product pl-0">
+						<p class="w-100 pt-2 pb-2 pl-2 text-uppercase" style="background-color:#f1f1f1">
+						
+						<small>Categorie: <a class="a" href="{{ path('product_gamme', {'name': product.gammeProduct.name,'id': product.gammeProduct.id} ) }}">{{ product.gamme }}</a> / {{  product.category }} </small>
+						{% if product.isNewProduct == 1 %}
+							<span class="badge float-right bg-warning text-dark text-uppercase mr-2">Nouveau Produit </span>
+						{% endif %} 
+						</p>
+						<br>
+						<div class="row">
+							<div class="col-2 p-0">
+								{% include "front/blocks/slider-product.html.twig" %}
+							</div>
+							<div class="col-2">
+								
+								<h3>{{ product.title}}</h3>
+								<h4>{{  product.price }}€ HT</h4>
+								<hr>
+								{{ form_start(form) }}
+									<div class="row">
+										<div class="col-sm-3 col-md-3">
+											{{ form_row(form.quantity) }}
+										</div>
+									<div class="col-sm-9 col-md-9 " style="margin-top:-5px!important;">
+										<button class="btn btn-red" style="height40px!important">
+											Ajouter au panier
+											<i class="fas fa-shopping-cart text-light"></i>
+										</button>	
+									</div>
+								{{ form_end(form) }}
+							</div>
 
-                <!-- Référence-->
-                <aside class="btn-red bg-gradient rounded-3 p-4 p-sm-5 mt-5">
-                    <div class="d-flex align-items-center justify-content-between flex-column flex-xl-row text-center text-xl-start">
-                        <div class="mb-4 mb-xl-12">
-                            <div class="fs-3 fw-bold text-white text-uppercase">nos références</div>
-                            <div class="text-white-50">Découvrez la liste de nos références</div> <br>
-                            <img src="assets/partenaires/1.jpg" class="rounded" style="width:90px"/>
-                            <img src="assets/partenaires/2.jpg" class="rounded" style="width:90px"/>
-                            <img src="assets/partenaires/3.jpg" class="rounded" style="width:90px"/>
-                            <img src="assets/partenaires/4.jpg" class="rounded" style="width:90px"/>
-                            <img src="assets/partenaires/5.jpg" class="rounded" style="width:90px"/>
-                            <img src="assets/partenaires/6.jpg" class="rounded" style="width:90px"/>
-                            <img src="assets/partenaires/7.jpg" class="rounded"style="width:90px"/>
-                            <img src="assets/partenaires/8.jpg" class="rounded" style="width:90px"/>
-                            <img src="assets/partenaires/9.jpg" class="rounded" style="width:90px"/>
-                            <img src="assets/partenaires/10.jpg" class="rounded" style="width:90px"/>
-                            <img src="assets/partenaires/11.jpg" class="rounded" style="width:90px"/>
-                        </div>
-                        
-                        <!-- <div class="ms-xl-4">
-                            <div class="input-group mb-2">
-                                <input class="form-control" type="text" placeholder="Email address..." aria-label="Email address..." aria-describedby="button-newsletter" />
-                                <button class="btn btn-outline-light" id="button-newsletter" type="button">Sign up</button>
-                            </div>
-                            <div class="small text-white-50">We care about privacy, and will never share your data.</div>
-                        </div> -->
-                    </div>
-                </aside>
-            </div>
-            </section>
-           
+								<hr>
+								<p>{{product.shortDesc|striptags('<br><p><strong><em>')|raw }}</p>
+							</div>
+						</div>
+						{# tab caractéristique  #}
+
+						{# TAB CARACTERISTIQUE MODEL 2 #}
+							<div class="mt-5 w-100 mb-5 pb-5">
+								<div class="accordian">
+									<div class="accordian-title text-uppercase">L'humitest en action<span>
+										<svg width="24px" height="24px" viewBox="0 0 24 24" aria-labelledby="plusIconTitle" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+											<title id="plusIconTitle">Plus</title>
+											<path d="M20 12L4 12M12 4L12 20" />
+											</svg></span>
+									</div>
+									<div class="" style="background-color:#f1f1f1;padding:20px">
+										
+										{% if product.humitestEnAction %}
+											{{  product.humitestEnAction|striptags('<br><p><strong><em>')|raw }}
+										{% else %}
+											<span class="text-center"> Aucune description disponible</span>
+										{% endif %}
+									</div>
+								</div>
+								<div class="accordian">
+									<div class="accordian-title  text-uppercase">Caractéristiques detaillées<span><svg width="24px" height="24px" viewBox="0 0 24 24" aria-labelledby="plusIconTitle" stroke-width="2" stroke="#000" stroke-linecap="round" stroke-linejoin="round">
+										<title id="plusIconTitle">Plus</title>
+										<path d="M20 12L4 12M12 4L12 20" />
+										</svg></span></div>
+									<div class="accordian-content">
+									{# ae? Litora accusamus, eligendi irure, quos occaecat aliquip odio, et! Ut arcu esse, veritatis odit posuere blanditiis! Maecenas facilisi. #}
+									</div>
+								</div>
+								<div class="accordian">
+									<div class="accordian-title  text-uppercase">Video<span><svg width="24px" height="24px" viewBox="0 0 24 24" aria-labelledby="plusIconTitle" stroke-width="2" stroke="#000" stroke-linecap="round" stroke-linejoin="round">
+										<title id="plusIconTitle">Plus</title>
+										<path d="M20 12L4 12M12 4L12 20" />
+										</svg></span></div>
+									<div class="accordian-content">
+									{% if product.linkVideo %}
+										<center><iframe src="{{product.linkVideo}}" width="760" height="415" frameborder="0"></iframe></center>
+									{% else %}
+										<span class="text-center"> Aucune vidéo disponible</span>
+									{% endif %}
+									</div>
+								</div>
+							
+								</div>
+						{# FIN MODEL 2 #}
+					</div>
+				</div>
+			</div>
+		</div>
+		{# produit SIMILAIRE  #}
+		<div class="col-md-2">
+			<aside class="btn-red bg-gradient rounded-3 p-4 mt-5" style="position: fixed;top: 100px;">
+				<div class="d-flex align-items-center justify-content-between flex-column flex-xl-row text-center text-xl-start">
+					<div class="mb-4 mb-xl-12">
+						<div class="h5 fw-bold text-white text-uppercase text-center">Produits similaires</div>
+						<!-- <div class="text-white-50">Découvrez la liste de nos références</div> <br> -->
+						<div class="card-body p-0">
+							{% if products %}
+								{% include "front/blocks/product_similaire.html.twig" %}
+
+							{% else %}
+								<ul class="list-group list-group-flush list-unstyled">
+									<li class="fw-bold mb-1">
+										<div class="bg-light p-3 shadow-sm">
+											<div class="row">
+												<p class="text-center">Aucun produit similaire...</p>
+											</div>
+										</li>
+									</li>
+								</ul>
+							{% endif %}
+
+						</div>
+					</div>
+				</div>
+			</aside>
+		</div>
+	</div>
+<style>
+.product_card[quantity]{
+	width:100%!important;
+}
+ .accordian-title {
+	 font-size: 18px;
+	 font-weight: bold;
+	 padding: 20px;
+	 border-bottom: 1px solid black;
+	 display: flex;
+	 justify-content: space-between;
+	 transition: all 0.1s linear;
+	 max-width: 100%;
+}
+ .accordian-title span {
+	 transform-origin: center center;
+	 transition: all 0.1s linear;
+	 height: 24px;
+}
+ .accordian-title.active span {
+	 transform: rotate(45deg);
+	 transform-origin: center center;
+	 transition: all 0.1s linear;
+}
+ .accordian-title.active span svg {
+	 stroke: #f00;
+}
+ .accordian-content {
+	 display: none;
+	 padding: 20px;
+	 background: #f1f1f1;
+	 max-width: 100%;
+	 border-bottom: 1px solid #c11823;
+	 /* margin:15px; */
+	 padding:25px;
+}
+ 
+</style>
 {% endblock %}

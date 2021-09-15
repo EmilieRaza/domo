@@ -1,0 +1,11 @@
+{% block body %}
+        {% for gamme in gammes %}
+        
+        <li class="nav-item">
+
+                <a class="nav-link me-lg-3 text-uppercase text-dark"
+                href="{{ path('product_gamme', {'name': gamme.name,'id': gamme.id} ) }}"
+                >{{gamme.name}}</a>
+        </li>
+        {% endfor %}
+{% endblock %}

@@ -8,16 +8,43 @@
         <section class="banner pages">
             <div class="container">
                 <div class="middle">
-                    <h1>Contactez-nous !</h1>
+                    <h1 class="text-uppercase">Contactez-nous !</h1>
                 </div>
             </div>
         </section>
     {% endblock %}
 
 
-    <section class="section-padding">
+    <section class="btn-red pr-5 pl-5 pt-3 pb-3 m-0">
+       <div class="row text-light">
+            <div class="col-md-3 text-center">
+             <span class="h5 text-uppercase">Heures d’ouverture </span><br>
+                <small class="text-white"> Du lundi au vendredi <br>9h > 12h30 – 13h30 > 18h<br>
+                (17h le vendredi) – GMT+2</small>
+               
+            </div>
+            <div class="col-md-2 text-light  text-center">
+                <span class="h5 text-uppercase">Contact</span><br>
+                <small class="text-white"> Tél. : +33(0) 1 45 87 22 99 <br>
+                Fax : +33(0) 1 45 87 00 59</small><br><br>
+            </div>
+            <div class="col-md-2 text-light  text-center">
+                <span class="h5 text-uppercase"> Adresse </span><br>
+                <small class="text-white">8, rue du Loing <br>75014 Paris – France</small><br><br>
+            </div>
+            <div class="col-md-2 text-light  text-center">
+                <span class="h5 text-uppercase"> Presse</span><br>
+                <small class="text-white">Magali Couleaud<br>Tél. : +33(01) 45 87 22 99 <br>mcouleaud@domosystem.fr </small>
+            </div>
+            <div class="col-md-3 text-light  text-center">
+                <span class="h5 text-uppercase">Commercial</span><br>
+                <small class="text-white"> commercial@domosystem.fr</small><br><br><br>
+            </div>
+
+    </section>
+    <section class="section-padding" style="background-color:#f2f2f2">
         <div class="container">
-            <h2 class="text-center">Une question ? <br> Une proposition commerciale ? <br> Contactez-nous !</h2>
+
             <div class="shape"></div>
             {% include "front/blocks/contact.html.twig" %}
         </div>

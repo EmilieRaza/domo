@@ -1,60 +1,103 @@
 <?php
 
 namespace App\Entity;
-use Symfony\Component\Validator\Constraints as Assert;
 
-class Contact {
-    
+use App\Repository\ContactRepository;
+use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity(repositoryClass=ContactRepository::class)
+ */
+class Contact
+{
     /**
-     *  @Assert\NotBlank(message="Le champ ne peut pas être vide!")
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le champ ne peut pas être vide!")
      */
     private $firstname;
 
     /**
-     *  @Assert\NotBlank(message="Le champ ne peut pas être vide!")
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le champ ne peut pas être vide!")
      */
     private $lastname;
 
-   /**
-     *  @Assert\NotBlank(message="Le champ ne peut pas être vide!")
-     *  @Assert\Email
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le champ ne peut pas être vide!")
      */
     private $email;
 
-     /**
-     *  @Assert\NotBlank(message="Le champ ne peut pas être vide!")
-     *  @Assert\Regex("/^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/")
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le champ ne peut pas être vide!")
+     * @Assert\Regex("/^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/")
      */
     private $phone;
 
-    
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
     private $type;
 
-     /**
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $fonction;
+
+    /**
+     * @ORM\Column(type="text")
      * @Assert\NotBlank(message="Le message ne peut pas être vide!")
      * @Assert\Length(min=10)
      */
     private $message;
 
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $createdAt;
 
-    public function getFirstName(): ?string
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $updatedAt;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getFirstname(): ?string
     {
         return $this->firstname;
     }
 
-    public function setFirstName(string $firstname): self
+    public function setFirstname(string $firstname): self
     {
         $this->firstname = $firstname;
 
         return $this;
     }
 
-    public function getLastName(): ?string
+    public function getLastname(): ?string
     {
         return $this->lastname;
     }
 
-    public function setLastName(string $lastname): self
+    public function setLastname(string $lastname): self
     {
         $this->lastname = $lastname;
 
@@ -66,7 +109,7 @@ class Contact {
         return $this->email;
     }
 
-    public function setEmail(?string $email): self
+    public function setEmail(string $email): self
     {
         $this->email = $email;
 
@@ -78,22 +121,33 @@ class Contact {
         return $this->phone;
     }
 
-    public function setPhone(?string $phone): self
+    public function setPhone(string $phone): self
     {
         $this->phone = $phone;
 
         return $this;
     }
 
-
     public function getType(): ?string
     {
         return $this->type;
     }
 
-    public function setType(?string $type): self
+    public function setType(string $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getFonction(): ?string
+    {
+        return $this->fonction;
+    }
+
+    public function setFonction(?string $fonction): self
+    {
+        $this->fonction = $fonction;
 
         return $this;
     }
@@ -103,12 +157,34 @@ class Contact {
         return $this->message;
     }
 
-    public function setMessage(?string $message): self
+    public function setMessage(string $message): self
     {
         $this->message = $message;
 
         return $this;
     }
-    
 
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
 }

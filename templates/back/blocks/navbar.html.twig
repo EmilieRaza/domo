@@ -1,10 +1,23 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
 
-        <button type="button" id="sidebarCollapse" class="btn btn-info">
+        <button type="button" id="sidebarCollapse" class="btn btn-red mr-3 text-light rounded">
             <i class="fas fa-align-left"></i>
         </button>
 
+        <a  href="{{ path('admin_contact_search') }}" class="btn btn-red mr-3  text-light rounded">
+            <i class="far fa-comment-dots"></i> Messages
+        </a>
+
+        <a  href="{{ path('admin_command_search') }}" class="btn  mr-3   btn-red text-light rounded">
+            <i class="fas fa-shipping-fast"></i> Commandes
+        </a>
+{# <button type="button" class="btn btn-secondary position-relative">
+  Inbox
+  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+    99+<span class="visually-hidden"></span>
+  </span>
+</button> #}
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="nav navbar-nav ml-auto">
                 <li class="nav-item">
@@ -21,3 +34,8 @@
         </div>
     </div>
 </nav>
+<style>
+    .btn-red{
+        background-color:#c11823;          
+    }
+</style>

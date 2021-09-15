@@ -27,30 +27,35 @@
 				<div class="card-content">
 					{% form_theme form.images 'back/product/jquery.collection.html.twig' %}
 					{{ form_start(form) }}
-
-
 					{{ form_row(form.title) }}
 					<div class="row">
 						<div class="col-sm-4">{{ form_row(form.category) }}</div>
-						<div class="col-sm-4">{{ form_row(form.gamme) }}</div>
+						<div class="col-sm-4">{{ form_row(form.gammeProduct) }}</div>
 						<div class="col-sm-4">{{ form_row(form.price) }}</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-6">{{ form_row(form.priceCustomer) }}</div>
 						<div class="col-sm-6">{{ form_row(form.solde) }}</div>
 					</div>
-
+                   
+                    <h3 class="h3 text-center btn-red w-100 btn-primary text-light">Description</h3>
+                    {{ form_row(form.shortDesc) }}
+                    {{ form_row(form.humitestEnAction) }}
+					
+				    <h3 class="h3 text-center btn-red w-100 btn-primary text-light">Description</h3>
 					<div class="jumbotron">
 						{{ form_row(form.images) }}
 					</div>
-
-					{{ form_row(form.shortDesc) }}
-
+					<h3 class="h3 text-center btn-red w-100 btn-primary text-light">Vidéo</h3>
+					<div class="jumbotron">
+						{{ form_row(form.linkVideo) }}
+					</div>
 					<div class="row">
 						<div class="col-sm-4">{{ form_row(form.isHome) }}</div>
 						<div class="col-sm-4">{{ form_row(form.withDelivery) }}</div>
-						<div class="col-sm-4">
-							{{ form_row(form.isActive) }}</div>
+						<div class="col-sm-4">{{ form_row(form.isActive) }}</div>
+						<div class="col-sm-4"> {{ form_row(form.isNewProduct) }}</div>
+						<div class="col-sm-4">{{ form_widget(form) }}</div>
 					</div>
 
 					<br>

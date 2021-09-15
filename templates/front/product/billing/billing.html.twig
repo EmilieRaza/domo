@@ -167,7 +167,7 @@
 								{{data.delivery|number_format(2, ',', '')}}
 								€</small><br>
 						{% endif %}
-						{# <!-- <small>TVA: {{data.tva|number_format(2, ',', '')}} %</small> --> #}
+						<small>TVA: {{data.tva|number_format(2, ',', '')}} %</small>
 						<h4>
 							{% if data.oldtotal > 0 %}
 								<i>

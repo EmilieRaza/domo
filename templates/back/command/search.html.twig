@@ -30,50 +30,75 @@
 
 <section class="section-padding">
     <div class="container">
-        <h1>Gestion {{'Command'|transchoice(2)}}</h1>
+        <h1>Gestion des commandes</h1>
         <div class="shape"></div>
 
         <div class="card mt-4 mb-4">
-            <div class="card-header text-center">
-                <h4>Liste {{'Command'|transchoice(2)}}</h4>
+            <div class="card-header text-center btn-red text-light">
+                <h4>Liste des commandes</h4>
             </div>
             <div class="card-content">
                 <div class="table-responsive mt-4 mb-4">
                     <table class="table table-striped table-bordered" id="dataTable" width="100%" cellspacing="0" data-page-length='50'>
                         <thead>
                             <tr>
-                                <th>{% trans %}OrderKey{% endtrans %}</th>
-                                <th>Total</th>
-                                <th>{% trans %}Firstname{% endtrans %}</th>
-                                <th>{% trans %}Lastname{% endtrans %}</th>
+                                <th>Etat</th>
+                                <th>{% trans %}Numéro de commande{% endtrans %}</th>
+                                <th>{% trans %}Nom{% endtrans %}</th>
+                                <th>{% trans %}Prénom{% endtrans %}</th>
                                 <th>{% trans %}Email{% endtrans %}</th>
-                                <th>{% trans %}Phone{% endtrans %}</th>
-                                <th>{% trans %}Address{% endtrans %}</th>
-                                <th>{% trans %}StripeKey{% endtrans %}</th>
-                                <th>{% trans %}CreatedAt{% endtrans %}</th>
+                                {# <th>{% trans %}Téléphone{% endtrans %}</th> #}
+                                {# <th>{% trans %}Addresse{% endtrans %}</th> #}
+                                <th>{% trans %}Crée le{% endtrans %}</th>
+                                 <th>Total</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                         {% for command in commands %}
                             <tr>
+                                <td>
+                                    {% set stape_color = "" %}
+                                    
+                                    {% if command.stape =="Paiement Accepté"  %}
+                                        <span class="badge bg-primary text-uppercase text-light p-2">{{command.stape}}</span>
+
+                                    {% elseif command.stape == null   %}
+                                        <span class="badge bg-primary text-uppercase text-light p-2">Paiement Accepté</span>
+
+                                    {% elseif command.stape == "En attente de paiement" %}
+                                        <span class="badge bg-warning text-uppercase  p-2">{{command.stape}}</span>
+
+                                    {% elseif command.stape == "Commande Expédiée" %}
+                                        <span class="badge bg-success text-uppercase text-light p-2">{{command.stape}}</span>
+
+                                    {% elseif command.stape == "Commande Annulée" %}
+                                        <span class="badge bg-danger text-uppercase">{{command.stape}}</span>
+
+                                    {% elseif command.stape == "Commande Remboursée" %}
+                                        <span class="badge bg-info text-uppercase p-2">{{command.stape}}</span>
+
+                                    {% endif %}
+                                </td>
                                 <td>{{ command.orderKey }}</td>
-                                <td>{{command.total|number_format(2, ',', '')}} €</td>
                                 <td>{{ command.firstname }}</td>
                                 <td>{{ command.lastname }}</td>
                                 <td>{{ command.email }}</td>
-                                <td>{{ command.phone }}</td>
-                                <td>{{ command.address }} {{ command.zipcode }} {{ command.city }}</td>
-                                <td>{{ command.stripeKey }}</td>
+                                {# <td>{{ command.phone }}</td> #}
+                                {# <td>{{ command.address }} {{ command.zipcode }} {{ command.city }}</td> #}
                                 <td>{{ command.createdAt ? command.createdAt|date('d/m/Y') : '' }}</td>
-                                <td>
-                                    <a href="{{ path('admin_command_read', {'id': command.id}) }}" title="Voir" class="btn btn-primary" aria-label="Voir">
-                                        <i class="fa fa-file"></i>
-                                    </a>
-                                    <a href="#" title="Supprimer" class="btn btn-danger btn-delete" data-toggle="modal" data-target="#delete" aria-label="Supprimer" id="{{command.id}}" data-title="{{ command.orderKey }}" data-path="{{ path('admin_command_delete', {'id': command.id})}}">
+                                <td style="width:12%">{{command.total|number_format(2, ',', '')}} €</td>
+                                <td style="width:13%">
+                                    <small><a href="{{ path('admin_command_read', {'id': command.id}) }}" title="Voir" 
+                                    class="btn btn-secondary rounded p-2 " aria-label="Voir"><i class="fas fa-eye"></i> </a></small>
+
+                                    <small><a href="{{path('admin_command_update', {'id': command.id}) }}" title="Modifier" class="btn btn-secondary rounded p-2" ><i class="fas fa-edit"></i></a></small>
+                                    
+                                    <small><a href="{{absolute_url(path('home')) ~ 'upload/billing/' ~ command.billing}}" title="Téléchager la facture" class="btn btn-secondary rounded p-2" target="_blank"><i class="fas fa-download"></i> </a></small>
+
+                                     {# <a href="#" title="Supprimer" class="btn btn-red rounded p-2 text-light" data-toggle="modal" data-target="#delete" aria-label="Supprimer" id="{{command.id}}" data-title="{{ command.orderKey }}" data-path="{{ path('admin_command_delete', {'id': command.id})}}">
                                         <i class="fa fa-times"></i>
-                                    </a>
-                                    <a href="{{absolute_url(path('home')) ~ 'upload/billing/' ~ command.billing}}" title="Téléchager la facture" class="btn btn-success" target="_blank"><i class="fas fa-download"></i></a>
+                                    </a> #}
                                 </td>
                             </tr>
                         {% else %}

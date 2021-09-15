@@ -1,0 +1,47 @@
+{% extends 'back/layout.html.twig' %}
+
+{% block title %} Ajouter  {% endblock %}
+
+{% block content %}
+
+<section class="section-padding">
+    <div class="container">
+        <h1>Ajouter </h1>
+        <div class="shape"></div>
+        <div class="text-right mt-4">
+            <a href="{{ path('admin_product_search') }}" class="btn btn-primary" role="button">
+                <i class="fa fa-reply"></i> Retour
+            </a>
+        </div>
+        <div class="card mt-4 mb-4">
+            <div class="card-header text-center">
+                <h4>Formulaire d'ajoute de caractéristique</h4>
+            </div>
+            <div class="card-content">
+                {{ form_start(form) }}
+                {{ form_row(form.title) }}
+                 {# <div class="row">
+                    <div class="col-sm-4">{{ form_row(form.gammeProduct) }}</div>   
+                    <div class="col-sm-4">{{ form_row(form.category) }}</div>
+                    <div class="col-sm-4">{{ form_row(form.price) }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">{{ form_row(form.priceCustomer) }}</div>
+                    <div class="col-sm-6">{{ form_row(form.solde) }}</div>
+                {# </div> #}
+                {# <hr>
+                <h3 class="h3 text-center btn-red w-100 btn-primary text-light">Description</h3>
+                {{ form_row(form.shortDesc) }}
+                {{ form_row(form.humitestEnAction) }}  #}
+                <br>
+                <button class="btn btn-primary">Ajouter</button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block javascripts %}
+     {{ parent() }}
+{% endblock %}

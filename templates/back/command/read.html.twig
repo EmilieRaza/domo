@@ -22,11 +22,11 @@
                 <h4>Fiche contact</h4>
                 <p><strong>Commande du: {{ command.createdAt ? command.createdAt|date('d/m/Y') : '' }}</strong></p>
                 <ul class="list-unstyled">
-                    <li><strong>{% trans %}Firstname{% endtrans %}:</strong> {{ command.firstname }}</li>
-                    <li><strong>{% trans %}Lastname{% endtrans %}:</strong> {{ command.lastname }}</li>
+                    <li><strong>{% trans %}Nom{% endtrans %}:</strong> {{ command.firstname }}</li>
+                    <li><strong>{% trans %}Prenom{% endtrans %}:</strong> {{ command.lastname }}</li>
                     <li><strong>{% trans %}Email{% endtrans %}:</strong> {{ command.email }}</li>
-                    <li><strong>{% trans %}Phone{% endtrans %}:</strong> {{ command.phone }}</li>
-                    <li><strong>{% trans %}Address{% endtrans %}:</strong> {{ command.address }} {{ command.zipcode }}  {{ command.city }}</li>
+                    <li><strong>{% trans %}Téléphone{% endtrans %}:</strong> {{ command.phone }}</li>
+                    <li><strong>{% trans %}Adresse{% endtrans %}:</strong> {{ command.address }} {{ command.zipcode }}  {{ command.city }}</li>
                     <li><strong>{% trans %}StripeKey{% endtrans %}:</strong> {{ command.stripeKey }}</li>
                 </ul>
                 <a href="{{absolute_url(path('home')) ~ 'upload/billing/' ~ command.billing}}" title="Téléchager la facture" class="btn btn-success btn-block" target="_blank"><i class="fas fa-download"></i> Télécharger la facture</a>
@@ -36,7 +36,6 @@
                         <tr>
                             <th></th>
                             <th>Nom</th>
-                            <th>Taille/Poids</th>
                             <th>Prix</th>
                             <th>Quantité</th>
                         </tr>
@@ -54,13 +53,6 @@
                                 </div>
                             </td>
                             <td>{{command.product.title}}</td>
-                            <td>
-                                {% if command.product.weight %}
-                                    {{ command.product.size.convert }} / {{ command.product.weight.convert }}
-                                {% else %}
-                                    {{ command.product.size.convert }}
-                                {% endif %}
-                            </td>
                             
                             <td>{{command.price|number_format(2, ',', '')}} €</td>
                             <td>{{command.quantity}}</td>

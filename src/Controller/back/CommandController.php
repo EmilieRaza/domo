@@ -37,7 +37,26 @@ class CommandController extends AbstractController
             'slug'=>'admin_command',
         ]);
     }
+/**
+     * @Route("/update/{id}", name="admin_command_update", methods="GET|POST")
+     */
+    public function update(Request $request,Command $command): Response
+    {
+        $form = $this->createForm(CommandType::class, $command);
+        $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('admin_command_search');
+        }
+
+        return $this->render('back/command/update.html.twig', [
+            'command' => $command,
+            'form' => $form->createView(),
+            'slug'=>'admin_command',
+        ]);
+    }
 
     /**
      * @Route("/delete/{id}", name="admin_command_delete", methods="DELETE")

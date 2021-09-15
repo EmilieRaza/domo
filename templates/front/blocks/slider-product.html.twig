@@ -1,5 +1,5 @@
 {% if product.images|length > 1 %}
-    <div id="carousel-product" class="carousel slide" data-ride="carousel">
+    <div id="carousel-product" class="carousel slide " data-ride="carousel">
         <ol class="carousel-indicators">
             {% for productImages in product.images %}
                 <li data-target="#carousel-product" data-slide-to="{{loop.index0}}" {% if loop.index0 %}class="active"{% endif %}></li>
@@ -8,7 +8,7 @@
         <div class="carousel-inner">
             {% for productImages in product.images %}
                 <div class="carousel-item {% if loop.index0 %}active{% endif %}">
-                    <img src="{{ vich_uploader_asset(productImages, 'imageFile') | imagine_filter('thumb_read') }}" class="img-fluid w-100" alt="">
+                    <img src="{{ vich_uploader_asset(productImages, 'imageFile') | imagine_filter('thumb_read') }}" class="img-fluid w-100" alt="" style="height:450px!important">
                 </div>
             {% endfor %}
         </div>

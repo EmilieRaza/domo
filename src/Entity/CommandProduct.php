@@ -34,7 +34,7 @@ class CommandProduct
     private $product;
 
     /**
-     * @ORM\Column(type="decimal", precision=5, scale=2)
+     * @ORM\Column(type="decimal", precision=8, scale=2)
      */
     private $price;
 

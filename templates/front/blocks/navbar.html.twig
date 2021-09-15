@@ -1,66 +1,123 @@
 
 
   <nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm" id="mainNav" style="background-color: white!important;">
-            <div class="container px-5">
+            <div class="px-5 w-100">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="bi-list"></i>
                 </button>
-                <div class="row">
+                <div class="row w-100">
                     <div class="col-md-3">
                         <a class="navbar-brand fw-bold" href="{{ path('home')}}" class="float-left" style="float:left!important">
                             <img src="{{ asset('build/images/Domosystem-logo-2.jpg')}}" class="w-100" style="float:left!important">
                         </a>
                     </div>
-                    <div class="col-md-9">
+                    <div class="col-md-9 float-right">
                         <div class="collapse navbar-collapse" id="navbarResponsive">
-                            <ul class="navbar-nav ms-auto me-4 my-3 my-lg-0 font-weight-bold ">
-                                <li class="nav-item"><a class="nav-link me-lg-3 text-uppercase text-dark" href="#features">Batiment- immobilier</a>
-                                <li class="nav-item"><a class="nav-link me-lg-3 text-uppercase text-dark" href="#download">Industries</a></li>
-                                <li class="nav-item"><a class="nav-link me-lg-3 text-uppercase text-dark" href="#download">Biomasse</a></li>
-                                <li class="nav-item"><a class="nav-link me-lg-3 text-uppercase text-dark" href="#download">Accessoires</a></li>
+                           <ul class="navbar-nav ms-auto me-4 my-3 my-lg-0 font-weight-bold ">
+                                <li class="nav-item">
+                                    <a class="nav-link me-lg-3 text-uppercase text-dark"href="{{ path('product_all') }}"
+                                    >Nos produits</a>
+                                </li>
+                                {{ render(controller('App\\Controller\\front\\GammeController::index')) }}
                             </ul>
-                            <button class="btn btn-red text-light rounded-pill px-3 mb-2 mb-lg-0 mt-0" data-bs-toggle="modal" data-bs-target="#feedbackModal">
+
+                            <a href="{{ path('contact')}}" class="btn btn-red text-light rounded-pill px-3 mb-2 mb-lg-0 mt-0" data-bs-toggle="modal" data-bs-target="#feedbackModal">
                                 <span class="d-flex align-items-center">
-                                    {# <span class="small"> Nous contacter <i class="fas fa-comment-dots text-light"></i></span> #}
-                                    <span class="small">Contact <i class="fas fa-comment-dots text-light"></i> </span>
-                                </span>
-                            </button>&nbsp; 
-                            
-                            
+                                    {# <span class="small">Contact <i class="fas fa-comment-dots text-light"></i> </span> #}
+                                    <span class="small"><i class="fas fa-paper-plane  text-light"></i></span>
+                                    {# <span class="small"><i class="fas fa-comment-dots text-light"></i> Contact</span> #}
+                                </span> 
+                            </a> &nbsp;
                             {% if is_granted('ROLE_USER') %}
-                            {% if is_granted('ROLE_ADMIN') %}
-                            <a class="nav-link" href="{{ path('admin')}}">
+                            <a  href="{{ path('espace-client')}}"   {% if is_granted('ROLE_ADMIN') %} style="display:none!important!"{% endif %}>
                                 <button class="btn btn-red text-light rounded-pill px-3 mb-2 mb-lg-0 mt-0" data-bs-toggle="modal" data-bs-target="#feedbackModal">
                                         <span class="d-flex align-items-center">
-                                            <span class="small">Admin <i class="fas fa-sign-in-alt"></i></span>
+                                            {# <span class="small">Admin <i class="fas fa-sign-in-alt"></i></span> #}
+                                            <span class="small"> <i class="fas fa-sign-in-alt"></i> Espace client</span></span>
                                         </span>
-                                </button>
+                                </button> &nbsp;
+                            </a>
+                            {% if is_granted('ROLE_ADMIN') %}
+                            <a  href="{{ path('admin')}}">
+                                <button class="btn btn-red text-light rounded-pill px-3 mb-2 mb-lg-0 mt-0" data-bs-toggle="modal" data-bs-target="#feedbackModal">
+                                        <span class="d-flex align-items-center">
+                                            {# <span class="small">Admin <i class="fas fa-sign-in-alt"></i></span> #}
+                                            <span class="small"> <i class="fas fa-sign-in-alt"></i> Admin</span></span>
+                                        </span>
+                                </button> &nbsp;
+                            </a>
+                            <a href="{{ path('fos_user_security_logout')}}">
+                                <button class="btn btn-red text-light rounded-pill px-3 mb-2 mb-lg-0 mt-0" data-bs-toggle="modal" data-bs-target="#feedbackModal">
+                                        <span class="d-flex align-items-center">
+                                            <span class="small"> <i class="fas fa-sign-out-alt"></i> Deconnexion</span>
+                                        </span>
+                                </button> &nbsp;
                             </a>
                             {% else %}
-                              
-                            <a class="nav-link" href="{{ path('fos_user_security_logout')}}">
-                             <button class="btn btn-red text-light rounded-pill px-3 mb-2 mb-lg-0 mt-0" data-bs-toggle="modal" data-bs-target="#feedbackModal">
+                        
+                            <a  href="{{ path('fos_user_security_logout')}}">
+                                <button class="btn btn-red text-light rounded-pill px-3 mb-2 mb-lg-0 mt-0" data-bs-toggle="modal" data-bs-target="#feedbackModal">
                                         <span class="d-flex align-items-center">
                                             <span class="small">Deconnexion</span>
                                         </span>
-                                </button>
+                                </button> &nbsp;
                             </a>
-                           
                             {% endif %}
                             {% else %}
-                                <a class="nav-link" href="{{ path('fos_user_security_login')}}">
+                                <a href="{{ path('fos_user_security_login')}}">
                                     <button class="btn btn-red text-light rounded-pill px-3 mb-2 mb-lg-0 mt-0" data-bs-toggle="modal" data-bs-target="#feedbackModal">
                                         <span class="d-flex align-items-center">
-                                            <span class="small">Login <i class="fas fa-sign-in-alt"></i></span>
+                                            <span class="small">  <i class="fas fa-sign-in-alt"></i> Connexion</span>
                                         </span>
-                                    </button>
+                                    </button> &nbsp;
                                 </a>
                             {% endif %}
+                            {# <a href="{{ path('cart')}}" class="btn btn-red text-light rounded-pill px-3 mb-2 mb-lg-0 mt-0" data-bs-toggle="modal" data-bs-target="#feedbackModal">
+                                <span class="d-flex align-items-center">
+                                    <span class="small"> <i class="fas fa-shopping-cart"></i> ({{count_cart}}) </span>
+                                </span>
+                            </a> #}
+                            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+                            <a href="{{ path('cart')}}" class="float">
+
+
+                            <img src="{{ asset('img/paniergif.gif') }}" style="width:35px"> 
+                            {% if count_cart > 0 %} 
+                            {{count_cart}}
+                            {% endif %}
+                    
+                            </a>
                         </div>
                     </div>
-                   
+                
                 </div>
             </div>
         </nav>
-        
+    
+<style>
+.float{
+    padding-top:25px;
+	position:fixed;
+	width:95px;
+	height:95px;
+	bottom:40px;
+	right:40px;
+	background-color:#c11823;
+	color:#FFF;
+	border-radius:50px;
+	text-align:center;
+    font-size:25px;
+	
+    z-index:100;
+}
+.float:hover{
+    background-color:#c11823;
+    /* background-color:#5D6D7E;c11823 */
+    color:white;
+    box-shadow: 3px 3px 5px #999;
+}
+.my-float{
+	margin-top:16px;
+}
+</style>

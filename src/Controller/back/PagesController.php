@@ -16,6 +16,16 @@ class PagesController extends AbstractController
             'slug' => 'admin',
         ]);
     }
+    /**
+     * @Route("/espace-client", name="espace-client")
+     */
+    public function indexEspaceClient()
+    {
+        return $this->render('back/pages/index-espace-client.html.twig', [
+            'slug' => 'espace-client',
+        ]);
+    }
+    
 
     /**
      * @Route("/admin/fos-user-profile-show", name="fos_user_profile_show")

@@ -56,6 +56,12 @@ class ProductRepository extends ServiceEntityRepository
         ->where('p.isActive = 1');
     }
 
+    public function isFlagship()
+    {
+        return $this->createQueryBuilder('p')
+        ->where('p.isFlagship = 1')->getQuery()->getResult();
+    }
+
     // /**
     //  * @return Product[] Returns an array of Product objects
     //  */

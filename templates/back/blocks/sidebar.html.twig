@@ -10,11 +10,7 @@
         <li class="{% if slug == 'admin' %}active{% endif %}">
             <a href="{{ path('admin') }}">Accueil</a>
         </li>
-
-         <li class="{% if slug == 'admin_command' %}active{% endif %}">
-            {# <a href="{{ path('admin_command_search') }}">Liste des commandes</a> #}
-            <a>Liste des commandes</a>
-        </li>
+         
 
         <li class="{% if slug == 'admin_product' %}active{% endif %}">
             <a href="#productSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Produits</a>
@@ -29,7 +25,19 @@
                 </li>
             </ul>
         </li>
-
+        <li class="{% if slug == 'admin_gamme' %}active{% endif %}">
+            <a href="#gammeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Gamme</a>
+            <ul class="collapse list-unstyled" id="gammeSubmenu">
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                    <li>
+                        <a href="{{ path('admin_gamme_create') }}">Ajouter une gamme</a>
+                    </li>
+                {% endif %}
+                <li>
+                    <a href="{{ path('admin_gamme_search') }}">Liste des gammes</a>
+                </li>
+            </ul>
+        </li>
         <li class="{% if slug == 'admin_category' %}active{% endif %}">
             <a href="#categorySubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Categorie</a>
             <ul class="collapse list-unstyled" id="categorySubmenu">
@@ -142,7 +150,7 @@
             </ul>
         </li> #}
 
-         {% if is_granted('ROLE_SUPER_ADMIN') %}
+         {% if is_granted('ROLE_ADMIN') %}
             <li class="{% if slug == 'admin_security_search' %}active{% endif %}">
                 <a href="{{ path('admin_security_search') }}">Gestion des utilisateurs</a>
             </li>

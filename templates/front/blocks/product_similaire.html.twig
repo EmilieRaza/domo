@@ -6,18 +6,23 @@
                     <li class="fw-bold mb-1">
                         <div class="bg-light p-3 shadow-sm" >
                             <div class="row">
-                                <div class="col-md-4">
-                                 {% if product.images|length > 0 %}
-                                    <img src="{{ vich_uploader_asset(product.images.0, 'imageFile') | imagine_filter('thumb') }}" alt="{{product.title}}"  class="w-100 rounded"> 
-                                 {% else %}
-                                  <img src="{{ asset('build/images/default-image.jpg') | imagine_filter('thumb') }}" alt="{{product.title}}" class="w-100 rounded">
-                                {% endif %}
+                                <div class="colbg-warning">
+                                   
+
+                                    {% if product.images|length > 0 %}
+                                        <center><img style="height:100%"src="{{ vich_uploader_asset(product.images.0, 'imageFile') | imagine_filter('thumb') }}" alt="{{product.title}}"  class="h-75 w-75 rounded"> </center>
+                                    {% else %}
+                                        <center><img src="{{ asset('build/images/default-image.jpg') | imagine_filter('thumb') }}" alt="{{product.title}}" class="h-75 w-75 rounded" ></center>
+                                    {% endif %}
+                                     {% set title = product.title|length > 50 ? product.title|slice(0, 50) ~ '...' : product.title %}
+                                    <center class="a"><span class="a">{{title|striptags|raw}}</span>
+                                    <span class="a">{{ product.price }} € HT</span></center>
                                 </div>
-                                <div class="col-md-8 text-dark">
+                                {# <div class="col-md-7 text-dark">
                                     {% set title = product.title|length > 50 ? product.title|slice(0, 50) ~ '...' : product.title %}
                                     <span class="">{{title|striptags|raw}}</span>
                                 <span class="">{{ product.price }} € HT</span>
-                                </div>
+                                </div> #}
                             </div>
                         </div>
                     </li>

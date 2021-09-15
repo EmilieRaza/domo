@@ -1,0 +1,104 @@
+{% extends 'back/layout.html.twig' %}
+
+{% block title %} Ajouter {{'Product'|transchoice(1)}} {% endblock %}
+
+{% block content %}
+
+<section class="section-padding">
+    <div class="container">
+        <h1>Ajouter {{'Product'|transchoice(1)}}</h1>
+        <div class="shape"></div>
+        <div class="text-right mt-4">
+            <a href="{{ path('admin_product_search') }}" class="btn btn-primary" role="button">
+                <i class="fa fa-reply"></i> Retour
+            </a>
+        </div>
+        <div class="card mt-4 mb-4">
+            <div class="card-header text-center">
+                <h4>Formulaire {{'Product'|transchoice(1)}}</h4>
+            </div>
+            <div class="card-content">
+                {% form_theme form.images 'back/product/jquery.collection.html.twig' %}
+                {{ form_start(form) }}
+                
+                {{ form_row(form.title) }}
+                 <div class="row">
+                    <div class="col-sm-4">{{ form_row(form.gammeProduct) }}</div>   
+                    <div class="col-sm-4">{{ form_row(form.category) }}</div>
+                    <div class="col-sm-4">{{ form_row(form.price) }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">{{ form_row(form.priceCustomer) }}</div>
+                    <div class="col-sm-6">{{ form_row(form.solde) }}</div>
+                </div>
+                <hr>
+                <h3 class="h3 text-center btn-red w-100 btn-primary text-light">Description</h3>
+                {{ form_row(form.shortDesc) }}
+                {{ form_row(form.humitestEnAction) }}
+
+
+                <h3 class="h3 text-center btn-red w-100 btn-primary text-light">Photos</h3>
+                 <div class="jumbotron">
+                    {{ form_row(form.images) }}
+                 </div>
+
+                 <h3 class="h3 text-center btn-red w-100 btn-primary text-light">Vidéo</h3>
+                 <div class="jumbotron">
+                    {{ form_row(form.linkVideo) }}
+                 </div>
+                <div class="row">
+                    <div class="col-sm-4">{{ form_row(form.isHome) }}</div>
+                    <div class="col-sm-4">{{ form_row(form.withDelivery) }}</div>
+                    <div class="col-sm-4"> {{ form_row(form.isActive) }}</div>
+                    <div class="col-sm-4"> {{ form_row(form.isNewProduct) }}</div>
+                    <div class="col-sm-4"> {{ form_widget(form) }}</div>
+                </div>
+            
+                <br>
+                <button class="btn btn-primary">Ajouter</button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block javascripts %}
+     {{ parent() }}
+    
+    <script>
+         //AFFICHAGE DES NOM DES FICHIER UPLOADE
+        $(document).ready(function(){
+            var id = $('.custom-file input').attr('id');
+            $('#'+id).on('change',function(){
+                var fileName = $(this).val();
+                fileName = fileName.replace('C:\\fakepath\\', " ");
+                $(this).next('.custom-file-label').html(fileName);
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $('.image-collection').collection(
+            {
+                up: '<a href="#" class="btn-collection btn btn-primary" title="Move up"><i class="fas fa-caret-up"></i></a>',
+                down: '<a href="#" class="btn-collection btn btn-primary" title="Move down"><i class="fas fa-caret-down"></i></a>',
+                add: '<a href="#" class="btn-collection btn btn-primary" title="Add"><i class="fas fa-plus"></i></a>',
+                remove: '<a href="#" class="btn-collection btn btn-primary" title="Delete"><i class="fas fa-trash-alt"></i></a>',
+                allow_duplicate: false,
+                after_add: function(collection, element) {
+                    var id = $('.custom-file input').attr('id');
+                    var index = element.index();
+                    var idArray = id.split("_");
+                    idArray[2] = index;
+                    id = idArray[0]+'_'+idArray[1]+'_'+idArray[2]+'_'+idArray[3]+'_'+idArray[4];
+                    
+                    $('#'+id).on('change',function(){
+                        var fileName = $(this).val();
+                        fileName = fileName.replace('C:\\fakepath\\', " ");
+                        $(this).next('.custom-file-label').html(fileName);
+                    });
+                }
+            }
+        );
+    </script>
+{% endblock %}

@@ -29,16 +29,60 @@ class InformationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstname')
-            ->add('lastname')
-            ->add('email')
-            ->add('phone')
-            ->add('address')
-            ->add('zipcode')
-            ->add('city')
-            ->add('code', TextType::class,[
-                'required' => false,
+            ->add('firstname',TextType::class,[
+                'label' => false,
+                'attr' => array(
+                    'placeholder' => 'Nom'
+                )
+
             ])
+            ->add('lastname',TextType::class,[
+                'label' => false,
+                'attr' => array(
+                    'placeholder' => 'Prénom'
+                )
+
+            ])
+            ->add('email',TextType::class,[
+                'label' => false,
+                'attr' => array(
+                    'placeholder' => 'Email'
+                )
+
+            ])
+            ->add('phone',TextType::class,[
+                'label' => false,
+                'attr' => array(
+                    'placeholder' => 'Téléphone'
+                )
+
+            ])
+            ->add('address',TextType::class,[
+                'label' => false,
+                'attr' => array(
+                    'placeholder' => 'Adresse'
+                )
+
+            ])
+            ->add('zipcode',TextType::class,[
+                'label' => false,
+                'attr' => array(
+                    'placeholder' => 'CP'
+                )
+            ])
+            ->add('city',TextType::class,[
+                'label' => false,
+                'attr' => array(
+                    'placeholder' => 'Ville'
+                )
+            ])
+            // ->add('code', TextType::class,[
+            //     'required' => false,
+            //     'label' => false,
+            //         'attr' => array(
+            //             'placeholder' => 'Code Promo'
+            //         )
+            // ])
             ->add('termsAccepted', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => new IsTrue(),

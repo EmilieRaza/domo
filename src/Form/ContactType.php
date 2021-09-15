@@ -8,16 +8,28 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class ContactType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstname')
-            ->add('lastname')
-            ->add('email')
-            ->add('phone')
+            ->add('firstname',TextType::class,[
+                'label' => 'Nom',
+            ])
+            ->add('lastname',TextType::class,[
+                'label' => 'Prenom',
+            ])
+            ->add('email',TextType::class,[
+                'label' => 'Email',
+            ])
+            ->add('phone',TextType::class,[
+                'label' => 'Téléphone',
+            ])
+            ->add('fonction',TextType::class,[
+                'label' => 'Fonction',
+            ])
             ->add('type', ChoiceType::class, [
                 'label' => 'Type de demande',
                 'choices' => [

@@ -32,49 +32,141 @@
 
 	<section class="section-padding">
 		<div class="container">
-			<h1>Gestion
-				{{'Product'|transchoice(2)}}</h1>
+			<h1>Gestion de produits</h1>
 			<div class="shape"></div>
+			
 
 			<div class="text-right mt-4">
 				<a href="{{ path('admin_product_create') }}" class="btn btn-success">
 					<i class="fa fa-plus" aria-hidden="true"></i>
-					Ajouter
-					{{'Product'|transchoice(1)}}
+					Ajouter un produit
 				</a>
 			</div>
-
+				
 			<div class="card mt-4 mb-4">
-				<div class="card-header text-center">
-					<h4>Liste
-						{{'Product'|transchoice(2)}}</h4>
+				<div class="card-header text-center text-light btn-red" style="background-color:#c11823;">
+					<h4>Produit phare ( <small> affiché dans l'accueil</small>) </h4>
+				</div>
+				<div class="card-content">
+					<div class="table-responsive mt-4 mb-4">
+						<table class="table table-striped table-bordered" width="100%" cellspacing="0" data-page-length='50'>
+							<thead>
+								<tr>
+									<th>{% trans %}Image{% endtrans %}</th>
+									<th>{% trans %}Titre{% endtrans %}</th>
+									<th>{% trans %}Gamme/Category{% endtrans %}</th>
+									<th>{% trans %}Prix{% endtrans %}</th>
+									<th>{% trans %}Nouveau{% endtrans %}</th>
+									<th>{% trans %}Actif{% endtrans %}</th>
+									<th>{% trans %}Crée le{% endtrans %}</th>
+									<th>Actions</th>
+									{# <th></th> #}
+								</tr>
+							</thead>
+							<tbody>
+								{% for phareProduit in isFlagship %}
+										<tr style="background-color:#CCD1D1">
+										<td>
+											<div class="thumb-search">
+												{% if phareProduit.images|length > 0 %}
+													<img src="{{ vich_uploader_asset(phareProduit.images.0, 'imageFile') | imagine_filter('thumb') }}" alt="{{ phareProduit.title }}" class="img-responsive">
+												{% endif %}
+											</div>
+										</td>
+										<td>{{ phareProduit.title }}</td>
+										<td>{{ phareProduit.gammeProduct }} / {{ phareProduit.category }}</td>
+										
+										<td>
+											{% if phareProduit.solde > 0 %}
+												<del>{{ phareProduit.price|number_format(2, ',', '') }}
+													€</del>
+												{{phareProduit.priceSolde|number_format(2, ',', '')}}
+												€
+											{% else %}
+												{{ phareProduit.price|number_format(2, ',', '') }}
+												€
+											{% endif %}
+
+											{% if phareProduit.priceCustomer and phareProduit.priceCustomer > 0 %}
+												<hr>
+												{{ phareProduit.priceCustomer|number_format(2, ',', '') }}
+												€ (Pro)
+											{% endif %}
+										</td>
+										<td>{{ phareProduit.isNewProduct ? '<i class=" fas fa-check text-success"></i>' : '<i class="fas fa-times text-danger"></i>' }}</td>
+										<td>{{ phareProduit.isActive ? '<i class="fas fa-check text-success"></i>' : '<i class="fas fa-times text-danger"></i>' }}</td>
+										<td>{{ phareProduit.createdAt ? phareProduit.createdAt|date('d/m/Y') : '' }}</td>
+										<td>
+											<a href="{{ path('admin_product_read', {'id': phareProduit.id}) }}" title="Voir" class="btn btn-primary" aria-label="Voir">
+												<i class="fa fa-file"></i>
+											</a>
+											<a href="{{ path('admin_product_update', {'id': phareProduit.id}) }}" title="Modifier" class="btn btn-warning" aria-label="Modifier">
+												<i class="fas fa-edit"></i>
+											</a>
+											<a href="#" title="Supprimer" class="btn btn-danger btn-delete" data-toggle="modal" data-target="#delete" aria-label="Supprimer" id="{{phareProduit.id}}" data-title="{{ phareProduit.title }}" data-path="{{ path('admin_product_delete', {'id': phareProduit.id})}}">
+												<i class="fa fa-times"></i>
+											</a>
+										</td>
+										{# <td>
+											{% if phareProduit.isFlagship == 1 %}
+												<img src="{{ asset('build/images/numero1.png') }}" style="width:50px">
+											{% else %} <span class="text-center"> - </span>
+											{% endif %}
+										</td> #}
+									</tr>
+								{% else %}
+									<tr>
+										<td colspan="12">Aucun produit phare est selectionné</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		
+			<div class="card mt-4 mb-4">
+				<div class="card-header text-center btn-red text-light">
+					<h4>Liste des produits</h4>
 				</div>
 				<div class="card-content">
 					<div class="table-responsive mt-4 mb-4">
 						<table class="table table-striped table-bordered" id="dataTable" width="100%" cellspacing="0" data-page-length='50'>
 							<thead>
 								<tr>
+									<th>Id</th>
 									<th>{% trans %}Image{% endtrans %}</th>
-									<th>{% trans %}Title{% endtrans %}</th>
-									<th>{% trans %}Price{% endtrans %}</th>
-									{#                                 <th>{% trans %}Solde{% endtrans %}</th>
-									                                <th>{% trans %}Sale{% endtrans %}</th> #}
-									<th>{% trans %}Category{% endtrans %}</th>
-									<th>{% trans %}IsHome{% endtrans %}</th>
-									<th>{% trans %}IsActive{% endtrans %}</th>
-									<th>{% trans %}CreatedAt{% endtrans %}</th>
+									<th>{% trans %}Titre{% endtrans %}</th>
+									<th>{% trans %}Gamme/Category{% endtrans %}</th>
+									<th>{% trans %}Prix{% endtrans %}</th>
+									{# <th>{% trans %}Solde{% endtrans %}</th>
+									<th>{% trans %}Sale{% endtrans %}</th> #}
+									<th>{% trans %}Nouveau{% endtrans %}</th> 
+									<th>{% trans %}Actif{% endtrans %}</th>
+									<th>{% trans %}Crée le{% endtrans %}</th>
+									<th>Caractéristiques</th>
 									<th>Actions</th>
+					
 								</tr>
 							</thead>
 							<tbody>
 								{% for product in products %}
-									<tr>
+									{% if product.isFlagship == 1 %}
+										<tr style="background-color:#CCD1D1"> 
+									{% else %}
+										<tr>
+									{% endif %}
+										<td>{{product.id}}</td>
 										<td>
 											<div class="thumb-search">
-												<img src="{{ vich_uploader_asset(product.images.0, 'imageFile') | imagine_filter('thumb') }}" alt="{{ product.title }}" class="img-responsive">
+												{% if product.images|length > 0 %}
+													<img src="{{ vich_uploader_asset(product.images.0, 'imageFile') | imagine_filter('thumb') }}" alt="{{ product.title }}" class="img-responsive">
+												{% endif %}
 											</div>
 										</td>
 										<td>{{ product.title }}</td>
+										<td>{{ product.gammeProduct }} / {{ product.category }}</td>
+										
 										<td>
 											{% if product.solde > 0 %}
 												<del>{{ product.price|number_format(2, ',', '') }}
@@ -92,13 +184,19 @@
 												€ (Pro)
 											{% endif %}
 										</td>
-										{#                                 <td>{{ product.solde }}</td>
-										                                <td>{{ product.sale }}</td> #}
-										<td>{{ product.category }}</td>
-										<td>{{ product.isHome ? 'Oui' : 'Non' }}</td>
-										<td>{{ product.isActive ? 'Oui' : 'Non' }}</td>
+										{# <td>{{ product.solde }}</td>
+										<td>{{ product.sale }}</td> #}
+										
+										<td>{{ product.isNewProduct ? '<i class="fas fa-check text-success"></i>' : '<i class="fas fa-times text-danger"></i>' }}</td>
+										<td>{{ product.isActive ? '<i class="fas fa-check text-success"></i>' : '<i class="fas fa-times text-danger"></i>' }}</td>
 										<td>{{ product.createdAt ? product.createdAt|date('d/m/Y') : '' }}</td>
-										<td>
+										<td style="width:15%!important">
+											<a href="{{ path('admin_caracteristique_search', {'id': product.id}) }}" title="Ajouter" class="btn btn-primary" aria-label="Ajouter">
+												<i class="fas fa-list"></i>
+											</a>
+
+										</td>
+										<td style="width:15%!important">
 											<a href="{{ path('admin_product_read', {'id': product.id}) }}" title="Voir" class="btn btn-primary" aria-label="Voir">
 												<i class="fa fa-file"></i>
 											</a>
@@ -109,6 +207,16 @@
 												<i class="fa fa-times"></i>
 											</a>
 										</td>
+										{# <td>
+											{% if product.isFlagship == 1 %}
+												<img src="{{ asset('build/images/numero1.png') }}" style="width:50px">
+											{% else %} <span class="text-center"> - </span>
+											{% endif %}
+										</td> #}
+
+
+
+
 									</tr>
 								{% else %}
 									<tr>
@@ -174,4 +282,9 @@ sortDescending: ": activer pour trier la colonne par ordre décroissant"
 aaSorting: []
 });
 		</script>
+
+		<style>
+			.btn-red{
+				background-color:#c11823;
+			}
 	{% endblock %}

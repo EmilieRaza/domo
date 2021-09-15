@@ -19,6 +19,8 @@ class ProductCardType extends AbstractType
                 'label' => false,
                 'attr' =>[
                     'min' => 1,
+                    'class' => 'inputQuantity',
+
                 ]
             ])
         ;

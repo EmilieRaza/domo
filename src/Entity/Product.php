@@ -25,7 +25,7 @@ class Product
     private $title;
 
     /**
-     * @ORM\Column(type="decimal", precision=5, scale=2)
+     * @ORM\Column(type="decimal", precision=8, scale=2)
      */
     private $price;
 
@@ -98,16 +98,46 @@ class Product
     private $withDelivery;
 
     /**
-     * @ORM\Column(type="decimal", precision=5, scale=2, nullable=true)
+     * @ORM\Column(type="decimal", precision=8, scale=2, nullable=true)
      */
     private $priceCustomer;
 
     private $isCustomer;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255,nullable=true)
      */
     private $gamme;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $humitestEnAction;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Gamme::class, inversedBy="products")
+     */
+    private $gammeProduct;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isFlagship;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $linkVideo;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isNewProduct;
+
+    /**
+     * @ORM\OneToMany(targetEntity=TitleCaracteristique::class, mappedBy="product")
+     */
+    private $titleCaracteristique;
 
 
     public function __construct()
@@ -120,6 +150,7 @@ class Product
         $this->solde = 0;
         $this->images = new ArrayCollection();
         $this->commandProduct = new ArrayCollection();
+        $this->titleCaracteristique = new ArrayCollection();
     }
 
     public function isCustomer()
@@ -387,6 +418,96 @@ class Product
     public function setGamme(string $gamme): self
     {
         $this->gamme = $gamme;
+
+        return $this;
+    }
+
+    public function getHumitestEnAction(): ?string
+    {
+        return $this->humitestEnAction;
+    }
+
+    public function setHumitestEnAction(?string $humitestEnAction): self
+    {
+        $this->humitestEnAction = $humitestEnAction;
+
+        return $this;
+    }
+
+    public function getGammeProduct(): ?Gamme
+    {
+        return $this->gammeProduct;
+    }
+
+    public function setGammeProduct(?Gamme $gammeProduct): self
+    {
+        $this->gammeProduct = $gammeProduct;
+
+        return $this;
+    }
+
+    public function getIsFlagship(): ?bool
+    {
+        return $this->isFlagship;
+    }
+
+    public function setIsFlagship(?bool $isFlagship): self
+    {
+        $this->isFlagship = $isFlagship;
+
+        return $this;
+    }
+
+    public function getLinkVideo(): ?string
+    {
+        return $this->linkVideo;
+    }
+
+    public function setLinkVideo(?string $linkVideo): self
+    {
+        $this->linkVideo = $linkVideo;
+
+        return $this;
+    }
+
+    public function getIsNewProduct(): ?bool
+    {
+        return $this->isNewProduct;
+    }
+
+    public function setIsNewProduct(?bool $isNewProduct): self
+    {
+        $this->isNewProduct = $isNewProduct;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|TitleCaracteristique[]
+     */
+    public function getTitleCaracteristique(): Collection
+    {
+        return $this->titleCaracteristique;
+    }
+
+    public function addTitleCaracteristique(TitleCaracteristique $titleCaracteristique): self
+    {
+        if (!$this->titleCaracteristique->contains($titleCaracteristique)) {
+            $this->titleCaracteristique[] = $titleCaracteristique;
+            $titleCaracteristique->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTitleCaracteristique(TitleCaracteristique $titleCaracteristique): self
+    {
+        if ($this->titleCaracteristique->removeElement($titleCaracteristique)) {
+            // set the owning side to null (unless already changed)
+            if ($titleCaracteristique->getProduct() === $this) {
+                $titleCaracteristique->setProduct(null);
+            }
+        }
 
         return $this;
     }

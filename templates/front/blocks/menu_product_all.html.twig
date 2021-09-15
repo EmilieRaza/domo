@@ -1,0 +1,19 @@
+{% for row in categories|batch(5) %}
+	<nav class="navbar navbar-expand-custom navbar-mainbg">
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav" style="margin: 0 auto!important;">
+				{% for category in row %}
+					{# <img src="{{category.image_name}}" class="category_image"> #}
+					{% for product in products|slice(0,1) %}
+						<li class="nav-item">
+							<a class="nav-link" href="{{ path('product_category', {'id': category.id, 'name':category.name|my_url_encode}) }}">{{category.name}}</a>
+						</li>
+					{% endfor %}
+					<li class="nav-item">
+						<a class="nav-link">&nbsp;|&nbsp;</a>
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</nav>
+{% endfor %}
